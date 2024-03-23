@@ -1,42 +1,63 @@
-#root {
+:root {
+  --primary-color: #249D8C;
+  --secondary-color: #97B1A6;
+  --accent-color: #F4C84B;
+  --accent-color2: #E77D67;
+  --bg-color: #F1E1D2;
+  --accent-color3: hsla(0, 0%, 12%, 0.5);
+}
+
+@font-face {
+  font-family: Constancia;
+  src:url("../assets/fonts/Constacia_Modern-Deco.woff2") format("woff2"), url("../assets/fonts/Constacia_Modern-Deco.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: AvantGardeC;
+  src: url("../assets/fonts/AvantGardeC.woff2") format("woff2"),url("../assets/fonts/AvantGardeC.otf") format("otf");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: AvantGardeC;
+  src: url("../assets/fonts/AvantGardeC_Bold.woff2") format("woff2"),url("../assets/fonts/AvantGardeC_Bold.otf") format("otf");
+  font-weight: 900;
+  font-style: bold;
+}
+@font-face {
+  font-family: AvantGardeC;
+  src: url("../assets/fonts/AvantGardeC_Italic.woff2") format("woff2"),url("../assets/fonts/AvantGardeC_Italic.otf") format("otf");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: Second_Road;
+  src: url("../assets/fonts/Second_Road.ttf") format("ttf"),url("../assets/fonts/Second_Road.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+ /* @font-face {
+    font-family: Viena;
+    src: url("../assets/fonts/Vienna_Poster_Deco.ttf") format("ttf"),url("../assets/fonts/Second_Road.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+  } */
+
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+} */
+h1 {
+  font-family: Constancia, sans-serif;
+  font-size: 36px;
+}
+p{
+  font-family: Second_Road,sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
