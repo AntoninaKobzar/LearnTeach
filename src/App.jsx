@@ -1,15 +1,14 @@
 import Layout from "./components/layout/Layout";
 import "./App.css";
+import MainPage from "./components/mainPage/mainPage";
 
 
 function App() {
-  // const headingStyle = {
-  //   fontFamily: 'Rubik,sans-serif'
-  // };
-
   return (
     <>
-    <Layout/>
+      <Layout>
+        <MainPage/>
+      </Layout>
     </>
   );
 }
