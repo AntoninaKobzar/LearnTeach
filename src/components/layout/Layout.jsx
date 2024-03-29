@@ -1,12 +1,16 @@
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
+import BurgerMenu from "../burgermenu/BurgerMenu"
+
+
 const Layout=({children})=>{
 
     return(
         <>
-        <Header/>
+         <BurgerMenu/>
+        {/* <Header/> */}
         {children}
-        <Footer/>
+        {/* <Footer/> */}
         </>
     )
 }

@@ -1,0 +1,106 @@
+.mainpage{
+    display: flex;
+    justify-self: flex-start;
+    flex-direction: column;
+    width: 320px;
+    height: 100%;
+    background-color: var(--bg-color);
+}
+.title{
+    display: flex;
+    justify-content: left;
+    font-family: Constancia;
+    font-size: 32px;
+    line-height: 1.4;
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    text-shadow:2px 2px 4px var(--accent-color2);
+}
+.subtitle{
+    display: flex;
+    justify-content: right;
+    margin-right: 20px;
+    font-family: Shantell;
+    font-size: 18px;
+    color: var(--accent-color2);
+    text-shadow:2px 2px 4px var(--accent-color);
+}
+.img1{
+display: flex;
+margin: 30px auto;
+mix-blend-mode:darken;
+}
+.maintext{
+    margin: 0 20px;
+    font-family: AvantGardeC;
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: bold;
+    font-style: italic;
+
+    color:var(--accent-color3);
+}
+.infoTitle,.info{
+    margin: 40px 20px 0 20px;
+    font-family: AvantGardeC;
+    font-size: 10px;
+    line-height: 1.6;
+  
+    
+}
+.infoTitle{
+    color: var(--primary-color); 
+    font-size: 12px; 
+    font-style: italic;
+    font-weight: bold;
+}
+.info{
+    margin-top: 10px;
+}
+.quote{
+    margin-top: 10px;
+    font-family: Second_Road;
+    font-size: 12px;
+    color: var(--accent-color2);
+}
+
+.pupilsInfo,.teachersInfo{
+    display: flex;
+    flex-direction: column;
+    font-family: AvantGardeC;
+    font-size: 12px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    border: 1px dashed var(--accent-color);
+}
+
+.infoText{
+    font-family: AvantGardeC;
+    font-size: 10px;
+    line-height: 1.4;
+
+}
+
+.mainbtn{
+    display: flex;
+    margin: 20px auto;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 100px;
+    height: 35px;
+    border:transparent;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    font-family: AvantGardeC;
+    font-size: 14px;
+    text-shadow:2px 2px 4px var(--accent-color3);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.teachersInfo .mainbtn{
+    background-color: var(--accent-color2);
+}

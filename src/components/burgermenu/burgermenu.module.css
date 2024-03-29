@@ -1,0 +1,33 @@
+.menu{
+    background-color: var(--primary-color);
+    width: 70vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    gap:10px;
+}
+.burgerbtn{
+    display: flex;
+    width:100px;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-color);
+    cursor:pointer;
+    border: 1px solid var(--accent-color);
+    border-radius: 10px;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    font-family: AvantGardeC,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 
+        -.5px -.5px 0 #000,  
+         .5px -.5px 0 #000,
+        -.5px  .5px 0 #000,
+         .5px  .5px 0 #000;
+         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

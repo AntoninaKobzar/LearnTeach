@@ -37,25 +37,19 @@
   font-weight: 400;
   font-style: normal;
 }
- /* @font-face {
-    font-family: Viena;
-    src: url("../assets/fonts/Vienna_Poster_Deco.ttf") format("ttf"),url("../assets/fonts/Second_Road.woff") format("woff");
+ @font-face {
+    font-family: Shantell;
+    src:url("../assets/fonts/ShantellSans-MediumItalic.woff2") format("woff2"), url("../assets/fonts/ShantellSans-MediumItalic.ttf") format("ttf");
     font-weight: 400;
-    font-style: normal;
-  } */
+    font-style: italic;
+  }
+  
 
-/* #root {
-  max-width: 1280px;
+#root {
+  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-} */
-h1 {
-  font-family: Constancia, sans-serif;
-  font-size: 36px;
-}
-p{
-  font-family: Second_Road,sans-serif;
 }
 
 

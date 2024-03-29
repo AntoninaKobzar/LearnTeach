@@ -1,13 +1,15 @@
 import Layout from "./components/layout/Layout";
 import "./App.css";
-import MainPage from "./components/mainPage/mainPage";
+import MainPage from "./components/mainPage/MainPage";
 
 
 function App() {
   return (
     <>
+    
       <Layout>
-        <MainPage/>
+       
+        {/* <MainPage/> */}
       </Layout>
     </>
   );
