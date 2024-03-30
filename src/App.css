@@ -9,37 +9,37 @@
 
 @font-face {
   font-family: Constancia;
-  src:url("../assets/fonts/Constacia_Modern-Deco.woff2") format("woff2"), url("../assets/fonts/Constacia_Modern-Deco.ttf") format("ttf");
+  src:url("./assets/fonts/Constacia_Modern-Deco.woff2") format("woff2"), url("./assets/fonts/Constacia_Modern-Deco.ttf") format("ttf");
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: AvantGardeC;
-  src: url("../assets/fonts/AvantGardeC.woff2") format("woff2"),url("../assets/fonts/AvantGardeC.otf") format("otf");
+  src: url("./assets/fonts/AvantGardeC.woff2") format("woff2"),url("./assets/fonts/AvantGardeC.otf") format("otf");
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: AvantGardeC;
-  src: url("../assets/fonts/AvantGardeC_Bold.woff2") format("woff2"),url("../assets/fonts/AvantGardeC_Bold.otf") format("otf");
+  src: url("./assets/fonts/AvantGardeC_Bold.woff2") format("woff2"),url("./assets/fonts/AvantGardeC_Bold.otf") format("otf");
   font-weight: 900;
   font-style: bold;
 }
 @font-face {
   font-family: AvantGardeC;
-  src: url("../assets/fonts/AvantGardeC_Italic.woff2") format("woff2"),url("../assets/fonts/AvantGardeC_Italic.otf") format("otf");
+  src: url("./assets/fonts/AvantGardeC_Italic.woff2") format("woff2"),url("./assets/fonts/AvantGardeC_Italic.otf") format("otf");
   font-weight: 400;
   font-style: italic;
 }
 @font-face {
   font-family: Second_Road;
-  src: url("../assets/fonts/Second_Road.ttf") format("ttf"),url("../assets/fonts/Second_Road.woff") format("woff");
+  src: url("./assets/fonts/Second_Road.ttf") format("ttf"),url("./assets/fonts/Second_Road.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
  @font-face {
     font-family: Shantell;
-    src:url("../assets/fonts/ShantellSans-MediumItalic.woff2") format("woff2"), url("../assets/fonts/ShantellSans-MediumItalic.ttf") format("ttf");
+    src:url("./assets/fonts/ShantellSans-MediumItalic.woff2") format("woff2"), url("./assets/fonts/ShantellSans-MediumItalic.ttf") format("ttf");
     font-weight: 400;
     font-style: italic;
   }
