@@ -1,0 +1,101 @@
+{
+  "subjects": [
+    {
+      "name": "Англійська мова",
+      "id": "1"
+    },
+    {
+      "name": "Математика",
+      "id": "2"
+    },
+    {
+      "name": "Українська мова",
+      "id": "3"
+    },
+    {
+      "name": "Німецька мова",
+      "id": "4"
+    },
+    {
+      "name": "Історія України",
+      "id": "5"
+    },
+    {
+      "name": "Хімія",
+      "id": "6"
+    },
+    {
+      "name": "Біологія",
+      "id": "7"
+    },
+    {
+      "name": "Підготовка до школи",
+      "id": "8"
+    },
+    {
+      "name": "Фізика",
+      "id": "9"
+    }
+  ],
+  "teachers": [
+    {
+      "photo": "img",
+      "name": "Ann",
+      "e-mail": "example@gmail.com",
+      "info": {
+        "subject": [],
+        "education": "",
+        "experience": "",
+        "text": "",
+        "price": "200",
+        "on-line": false,
+        "off-line": false
+      }
+    },
+    {
+      "id": "b427",
+      "photo": "C:\\fakepath\\myphoto.jpg",
+      "name": "Ann",
+      "email": "ann@gmail.com",
+      "info": {
+        "subject": [],
+        "education": "University",
+        "experience": "10 years",
+        "text": "I am a teacher",
+        "price": "300",
+        "online": true,
+        "offline": true
+      }
+    },
+    {
+      "id": "96d6",
+      "photo": "C:\\fakepath\\myphoto.jpg",
+      "name": "Ann",
+      "email": "ann@gmail.com",
+      "info": {
+        "subject": [],
+        "education": "University",
+        "experience": "10 years",
+        "text": "I am a teacher",
+        "price": "300",
+        "online": true,
+        "offline": true
+      }
+    },
+    {
+      "id": "96d6",
+      "photo": "C:\\fakepath\\myphoto.jpg",
+      "name": "Ann",
+      "email": "ann@gmail.com",
+      "info": {
+        "subject": [],
+        "education": "University",
+        "experience": "10 years",
+        "text": "I am a teacher",
+        "price": "300",
+        "online": true,
+        "offline": true
+      }
+    }
+  ]
+}

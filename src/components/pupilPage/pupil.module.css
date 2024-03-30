@@ -1,0 +1,13 @@
+.title{
+    color: var(--primary-color); 
+    font-size: 12px; 
+    font-style: italic;
+    font-weight: bold;
+}
+.subject-list{
+
+}
+.subject-item{
+list-style: none;
+display: inline-block;
+}
