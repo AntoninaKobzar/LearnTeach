@@ -1,5 +1,5 @@
 .header{
-    position: sticky;
+    position: relative;
     display: flex;
     align-self: flex-start;
     justify-content: space-between;

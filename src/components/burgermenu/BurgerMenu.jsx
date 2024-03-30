@@ -1,15 +1,18 @@
-import style from './burgermenu.module.css'
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import style from './burgermenu.module.css';
 
-const BurgerMenu=()=>{
+const BurgerMenu = ({ close }) => {
+    return (
+        <div className={style.menu}>
+            <FontAwesomeIcon className={style.close} icon={faTimes} onClick={close} />
+            <Link to="/" className={style.burgerbtn}>Головна</Link>
+            <Link to="/students" className={style.burgerbtn}>Учню</Link>
+            <Link to="/teachers" className={style.burgerbtn}>Вчителю</Link>
+        </div>
+    );
+};
 
-    return(
-    <div className={style.menu}>
-        <button className={style.burgerbtn}>Головна</button>
-        <button className={style.burgerbtn}>Учню</button>
-        <button className={style.burgerbtn}>Вчителю</button>
-        <button className={style.burgerbtn}>Питання</button>
-        <button className={style.burgerbtn}>Кабінет</button>
-    
-    </div>)
-}
-export default BurgerMenu
+export default BurgerMenu;

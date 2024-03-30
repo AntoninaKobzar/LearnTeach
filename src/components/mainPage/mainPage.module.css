@@ -1,4 +1,4 @@
-.mainpage{
+.main-page{
     display: flex;
     justify-self: flex-start;
     flex-direction: column;
@@ -27,12 +27,12 @@
     color: var(--accent-color2);
     text-shadow:2px 2px 4px var(--accent-color);
 }
-.img1{
+.main-img{
 display: flex;
 margin: 30px auto;
 mix-blend-mode:darken;
 }
-.maintext{
+.main-text{
     margin: 0 20px;
     font-family: AvantGardeC;
     font-size: 12px;
@@ -42,7 +42,7 @@ mix-blend-mode:darken;
 
     color:var(--accent-color3);
 }
-.infoTitle,.info{
+.info-title,.info{
     margin: 40px 20px 0 20px;
     font-family: AvantGardeC;
     font-size: 10px;
@@ -50,7 +50,7 @@ mix-blend-mode:darken;
   
     
 }
-.infoTitle{
+.info-title{
     color: var(--primary-color); 
     font-size: 12px; 
     font-style: italic;
@@ -58,17 +58,23 @@ mix-blend-mode:darken;
 }
 .info{
     margin-top: 10px;
+    font-weight: bold;
+    padding: 0 20px;
 }
 .quote{
     margin-top: 10px;
+    padding-left: 100px;
+    padding-right: 20px;
     font-family: Second_Road;
     font-size: 12px;
+    font-weight: bold;
     color: var(--accent-color2);
 }
 
-.pupilsInfo,.teachersInfo{
+.pupils-info,.teachers-info{
     display: flex;
     flex-direction: column;
+    padding: 0 20px;
     font-family: AvantGardeC;
     font-size: 12px;
     margin-left: 20px;
@@ -77,14 +83,14 @@ mix-blend-mode:darken;
     border: 1px dashed var(--accent-color);
 }
 
-.infoText{
+.info-text{
     font-family: AvantGardeC;
     font-size: 10px;
     line-height: 1.4;
 
 }
 
-.mainbtn{
+.main-btn{
     display: flex;
     margin: 20px auto;
     justify-content: center;
