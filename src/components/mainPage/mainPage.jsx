@@ -4,6 +4,7 @@ import Img2 from '../../assets/images/img2.jpg'
 import Header from '../header/Header'
 import Footer from '../footer/Footer'
 
+
 const MainPage=()=>{
 
     return(
@@ -21,7 +22,7 @@ const MainPage=()=>{
        <p className={style.quote}>
         <q>"Навчання - це ключ до дверей, що ведуть до найбільших можливостей у вашому житті." 
         </q>- Oprah Winfrey</p> 
-        <img className={style['main-img']} src={Img2} width='80px' alt=''/>
+        <img className={style['main-img']} src={Img2} width='80px' alt={<a href="http://www.freepik.com">Designed by Freepik</a>}/>
         <div className={style['pupils-info']}>
             <p className={style['info-title']}>Для учнів:</p>
             <p className={style['info-text']}>Ви шукаєте вчителя або репетитора з конкретного предмету? У нас ви знайдете великий вибір кваліфікованих вчителів, готових допомогти вам у засвоєнні будь-якого матеріалу. Ви можете шукати за предметами, рівнем складності, рейтингом, а також вибирати між онлайн- та очними заняттями – все залежить від вашої власної зручності та переваг.</p>
@@ -33,7 +34,7 @@ const MainPage=()=>{
         <button className={style['main-btn']}>Перейти</button>
         </div>
         </div>
-        <Footer/>
+       <Footer/>
         </>
     )
 }

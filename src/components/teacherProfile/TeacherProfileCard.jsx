@@ -1,5 +1,6 @@
 import teacherService from '../../services/teachers';
 import React, { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom'
 
 const TeacherProfileCard=()=>{
     const [teacher, setTeacher] = useState()
@@ -17,7 +18,7 @@ const TeacherProfileCard=()=>{
     return(
         <>
         <p>Profile</p>
-        {teacher}
+        {<Link to={`/teachers/${id}`}>{teacher}</Link>}
         </>
     )
 }

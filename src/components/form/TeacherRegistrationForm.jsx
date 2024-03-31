@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import subjectService from '../../services/subjects';
 import teacherService from '../../services/teachers'
 import style from './form.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const TeacherRegistrationForm = ({ close }) => {
+  const [subjects, setSubjects] = useState([])
   const [teacherData, setTeacherData] = useState({
     photo: '',
     name: '',
     email: '',
     info: {
-      subject: [],
+      subjects: [],
       education: '',
       experience: '',
       text: '',
@@ -20,6 +22,14 @@ const TeacherRegistrationForm = ({ close }) => {
     }
   });
 
+  useEffect(() => {
+    subjectService.getAll()
+        .then(initialSubjects => { 
+            setSubjects(initialSubjects);
+        }).catch((error) => {
+            
+        })
+}, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTeacherData(prevState => ({
@@ -50,6 +60,27 @@ const TeacherRegistrationForm = ({ close }) => {
     }));
   };
 
+  const handleSubjectChange = (e) => {
+    const { value } = e.target;
+    const updatedSubjects = [...teacherData.info.subjects];
+    const index = updatedSubjects.indexOf(value);
+
+    if (index === -1) {
+      updatedSubjects.push(value);
+    } else {
+      updatedSubjects.splice(index, 1);
+    }
+
+    setTeacherData(prevState => ({
+      ...prevState,
+      info: {
+        ...prevState.info,
+        subjects: updatedSubjects
+      }
+    }));
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -61,15 +92,13 @@ const TeacherRegistrationForm = ({ close }) => {
       .catch((error) => {
         console.error('Error creating teacher:', error);
       });
+      // setTeacherData('')
   };
 
- 
-    
-  
   return (
-    <form className={style.form} onSubmit={handleSubmit}>
- <FontAwesomeIcon className={style.close} icon={faTimes} onClick={close} />
-      <label for="photo">Фото:   </label>
+    <form className={style.form} onSubmit={handleSubmit} >
+  <FontAwesomeIcon className={style.close} icon={faTimes} onClick={close} />
+      <label htmlFor="photo">Фото:   </label>
         <input id="photo"
           type="file"
           name="photo"
@@ -77,7 +106,7 @@ const TeacherRegistrationForm = ({ close }) => {
           onChange={handleChange}
         />
         <br/>
-        <label for="name">Ім'я:</label> 
+        <label htmlFor="name">Ім'я:</label> 
         <input id="name"
           type="text"
           name="name"
@@ -85,7 +114,7 @@ const TeacherRegistrationForm = ({ close }) => {
           onChange={handleChange}
         />
         <br/>
-      <label for="email">Email:</label>
+      <label htmlFor="email">Email:</label>
         <input id="email"
           type="email"
           name="email"
@@ -93,7 +122,23 @@ const TeacherRegistrationForm = ({ close }) => {
           onChange={handleChange}
         />
         <br/>
-      <label for="education">
+        <label>Предмети, які ви викладаєте:</label>
+      <div>
+        {subjects.map(subject => (
+          <div key={subject.id}>
+            <input
+              type="checkbox"
+              id={subject.id}
+              name="subject"
+              value={subject.name}
+              checked={teacherData.info.subjects.includes(subject.name)}
+              onChange={handleSubjectChange}
+            />
+            <label htmlFor={subject.id}>{subject.name}</label>
+          </div>
+        ))}
+      </div>
+      <label htmlFor="education">
         Освіта: </label>
         <input id="education"
           type="text"
@@ -102,7 +147,7 @@ const TeacherRegistrationForm = ({ close }) => {
           onChange={handleInfoChange}
         />
         <br/>
-      <label for="experience">Досвід:</label>
+      <label htmlFor="experience">Досвід:</label>
         <input id="experience"
           type="text"
           name="experience"
@@ -118,7 +163,7 @@ const TeacherRegistrationForm = ({ close }) => {
           onChange={handleInfoChange}
         />
         <br/>
-      <label for="price">
+      <label htmlFor="price">
         Вартість години занняття:</label>
         <input id="price"
           type="text"
@@ -127,7 +172,7 @@ const TeacherRegistrationForm = ({ close }) => {
           onChange={handleInfoChange}
         />
         <br/>
-      <label for="online">
+      <label htmlFor="online">
         Можу займатись онлайн:
         <input id="online"
           type="checkbox"
@@ -135,7 +180,7 @@ const TeacherRegistrationForm = ({ close }) => {
           checked={teacherData.info.online}
           onChange={handleCheckboxChange}
         /></label>
-      <label for="offline">
+      <label htmlFor="offline">
         Можу займатись офлайн:
         <input id="offline"
           type="checkbox"
@@ -143,7 +188,7 @@ const TeacherRegistrationForm = ({ close }) => {
           checked={teacherData.info.offline}
           onChange={handleCheckboxChange}
         /></label>
-      <button className={style.btn} type="submit">Submit</button>
+      <button className={style.btn} type="submit" >Submit</button>
     </form>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import subjectService from '../../services/subjects';
+import style from './pupil.module.css'
 import Header from '../header/Header'
 import Footer from '../footer/Footer'
-import style from './pupil.module.css'
 
 
 const PupilPage = () => {
@@ -22,10 +22,8 @@ const PupilPage = () => {
 
     return (
         <>
-            <Header />
+          <Header/>
             <h2 className={style.title}>Популярні предмети</h2>
-            
-
             <ul className={style['subject-list']}>
                 {Array.isArray(subjects) && subjects.length > 0 ? (
                     subjects.map(subject => (
@@ -35,7 +33,7 @@ const PupilPage = () => {
                     <li>No subjects found</li>
                 )}
             </ul>
-            <Footer />
+          <Footer/> 
         </>
     )
 }
