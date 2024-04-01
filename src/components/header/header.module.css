@@ -2,7 +2,7 @@
     position: relative;
     display: flex;
     align-self: flex-start;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 320px;
     height: 60px;
     background-color: var(--primary-color);
@@ -12,7 +12,6 @@
 .logo{
     display: flex;
     align-items: center;
-    margin-left: 20px;
     font-family: Constancia;
     font-size: 16px;
     color:var(--accent-color);
@@ -39,7 +38,6 @@
 .menubtn{
     display: flex;
     align-self: center;
-    margin-right: 20px;
     justify-content: center;
     align-items: center;
     width: 30px;
@@ -48,7 +46,59 @@
     border: 1px solid var(--primary-color);
     cursor: pointer;
 }
-.menuicon{
+
+.userbtn,.closebtn{
     display: flex;
-    fill: var(--accent-color);
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    cursor: pointer;
+} 
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loginbtns{
+    display: flex;
+    flex-direction: column;
+    gap:8px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    border: 1px dashed var(--accent-color);
+    position: absolute;
+    top:60px;
+    right:0;
+}
+
+.loginbtn{
+    display: flex;
+    min-width:160px;
+    padding: 20px 40px;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-color);
+    cursor:pointer;
+    border: 1px solid var(--accent-color);
+    border-radius: 10px;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    font-family: AvantGardeC,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-shadow: 
+        -.5px -.5px 0 #000,  
+         .5px -.5px 0 #000,
+        -.5px  .5px 0 #000,
+         .5px  .5px 0 #000;
+         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.loginbtn:hover{
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+
 }
