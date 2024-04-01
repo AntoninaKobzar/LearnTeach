@@ -30,6 +30,7 @@ const TeacherRegistrationForm = ({ close }) => {
             
         })
 }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTeacherData(prevState => ({
@@ -60,43 +61,50 @@ const TeacherRegistrationForm = ({ close }) => {
     }));
   };
 
-  const handleSubjectChange = (e) => {
-    const { value } = e.target;
-    const updatedSubjects = [...teacherData.info.subjects];
-    const index = updatedSubjects.indexOf(value);
-
-    if (index === -1) {
-      updatedSubjects.push(value);
-    } else {
-      updatedSubjects.splice(index, 1);
+  const handleSubjectChange = (event) => {
+    const { options } = event.target;
+    const selectedSubjects = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedSubjects.push(options[i].value);
+      }
     }
-
     setTeacherData(prevState => ({
       ...prevState,
       info: {
         ...prevState.info,
-        subjects: updatedSubjects
+        subjects: selectedSubjects
       }
     }));
   };
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    teacherService
-      .create(teacherData)
+    teacherService.create(teacherData)
       .then((returnedTeacher) => {
-        setTeacherData(returnedTeacher);
+        setTeacherData({
+          photo: '',
+          name: '',
+          email: '',
+          info: {
+            subjects: [],
+            education: '',
+            experience: '',
+            text: '',
+            price: '',
+            online: false,
+            offline: false
+          }
+        });
+         // Close the form
       })
       .catch((error) => {
         console.error('Error creating teacher:', error);
       });
-      // setTeacherData('')
   };
 
+
   return (
-    <form className={style.form} onSubmit={handleSubmit} >
+    <form className={style.form} onSubmit={handleSubmit}encType="multipart/form-data" method="post" >
   <FontAwesomeIcon className={style.close} icon={faTimes} onClick={close} />
       <label htmlFor="photo">Фото:   </label>
         <input id="photo"
@@ -122,22 +130,32 @@ const TeacherRegistrationForm = ({ close }) => {
           onChange={handleChange}
         />
         <br/>
-        <label>Предмети, які ви викладаєте:</label>
-      <div>
+        {/* <label htmlFor="subjects">Оберіть предмети, які викладаєте:</label>
+        <select id="subjects"
+  multiple
+  value={teacherData.info.subjects}
+  onChange={handleSubjectChange}
+>
+  {subjects.map(subject => (
+    <option key={subject.id} value={subject.name}>
+      {subject.name}
+    </option>
+  ))}
+</select> */}
+<br />
+      <label htmlFor="subjects">Оберіть предмети, які викладаєте:</label>
+      <select id="subjects"
+        multiple
+        value={teacherData.info.subjects}
+        onChange={handleSubjectChange}
+      >
         {subjects.map(subject => (
-          <div key={subject.id}>
-            <input
-              type="checkbox"
-              id={subject.id}
-              name="subject"
-              value={subject.name}
-              checked={teacherData.info.subjects.includes(subject.name)}
-              onChange={handleSubjectChange}
-            />
-            <label htmlFor={subject.id}>{subject.name}</label>
-          </div>
+          <option key={subject.id} value={subject.name}>
+            {subject.name}
+          </option>
         ))}
-      </div>
+      </select>
+<br />
       <label htmlFor="education">
         Освіта: </label>
         <input id="education"

@@ -17,7 +17,7 @@ function App() {
                     <Route path="/students" element={<PupilPage/>} />
                     <Route path="/teachers" element={<TeacherPage/>} />
                     <Route path="/register" element={<TeacherRegistrationForm />} />
-                    <Route path="/:id" element={<TeacherProfileCard />} />
+                    <Route path="teachers/:id" element={<TeacherProfileCard />} />
                 </Routes>
         </Router>
       
