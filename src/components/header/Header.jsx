@@ -5,12 +5,20 @@ import UserIcon from '../../assets/images/profile.svg';
 import CloseIcon from '../../assets/images/close-1.svg';
 import BurgerMenu from '../burgermenu/BurgerMenu';
 import Modal from '../modal/Modal';
+import TeacherRegistrationForm from '../form/TeacherRegistrationForm';
+import RegisterStudent from '../registerStudent/RegisterStudent';
+
 import Login from '../login/Login';
 import style from './header.module.css';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isProfile,setIsProfile]=useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const toggleModal = () => {
+        setIsMenuOpen(!isMenuOpen);
+    }; 
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -39,8 +47,14 @@ const Header = () => {
             </button>
             <div className={style.loginbtns}>
             <Link to="/login"className={style.loginbtn}>Вхід</Link>
-            <Link to="students/register" className={style.loginbtn}>Реєстрація учня</Link>
-            <Link to="teacher/register"className={style.loginbtn}>Реєстрація вчителя</Link>
+            <Link to="/students" className={style.loginbtn} onClick={toggleModal}>Реєстрація учня
+            <Modal isOpen={isModalOpen} onClose={toggleModal}>
+                <RegisterStudent close={toggleModal}/>
+                </Modal></Link>
+            <Link to="/teachers"className={style.loginbtn} onClick={toggleModal}>Реєстрація вчителя
+                <Modal isOpen={isModalOpen} onClose={toggleModal}>
+                <TeacherRegistrationForm close={toggleModal}/>
+                </Modal></Link>
             </div>
             </div>}
            

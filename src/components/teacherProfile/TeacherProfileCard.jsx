@@ -1,4 +1,4 @@
-import teacherService from '../../services/teachers';
+import teacherService from '../../services/teachersService';
 import React, { useState, useEffect } from 'react';
 
 const TeacherProfileCard = ({ id }) => {

@@ -87,9 +87,44 @@
         "online": false,
         "offline": false
       }
+    },
+    {
+      "id": "a562",
+      "photo": "C:\\fakepath\\img6.jpg",
+      "name": "Bonny",
+      "email": "bonny@gmail.com",
+      "password": "123456",
+      "role": "teacher",
+      "info": {
+        "subjects": [
+          "Англійська мова"
+        ],
+        "education": "University",
+        "experience": "5",
+        "text": "goog teacher",
+        "price": "250",
+        "online": true,
+        "offline": false
+      }
     }
   ],
-  "students":[
-    
+  "students": [
+    {
+      "id": "cd01",
+      "username": "Kolin",
+      "password": "123456",
+      "email": "kolin@gmail.com",
+      "role": "student"
+    },
+    {
+      "id": "886e",
+      "username": "Kolin",
+      "password": "123456"
+    },
+    {
+      "id": "a313",
+      "username": "Kolin",
+      "password": "123456"
+    }
   ]
 }
