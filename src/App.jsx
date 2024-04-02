@@ -6,6 +6,7 @@ import Login from './components/login/Login';
 import  AuthProvider  from './hooks/AuthContext';
 import StudentDashboard from './components/pupilPage/StudentDashboard';
 import TeacherDashboard from './components/TeacherDashboard';
+import TeacherProfileCard from './components/teacherProfile/TeacherProfileCard';
 import NotFound from './components/NotFound';
 import "./App.css";
 
@@ -20,9 +21,10 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/student" element={<StudentDashboard />} />
-        <Route path="/login/teacher/dashboard" element={<TeacherDashboard />} />
+        <Route path="/teacher" element={<TeacherDashboard />} />
         <Route path="/students" element={<RegisterStudent />} />
         <Route path="/teachers" element={<TeacherRegistrationForm />} />
+        <Route path="/teachers/:id" element={<TeacherProfileCard />}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

@@ -47,8 +47,6 @@ const Login = () => {
           } else {
             throw new Error('Invalid role');
           }
-          // login();
-          // navigate('/student'); 
         } catch (error) {
           setError(error.message || 'Login failed');
           console.error('Login failed:', error);
@@ -98,7 +96,6 @@ const Login = () => {
         <button type="submit" disabled={loading}>Login</button>
         {loading && <div>Loading...</div>}
       </form>
-      {/* <button onClick={handleLogin}>Login</button> */}
     </div>
   );
 };

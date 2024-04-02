@@ -1,14 +1,18 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { useAuth } from '../hooks/AuthContext';
+import TeacherProfileCard from '../components/teacherProfile/TeacherProfileCard';
+import Header from '../components/header/Header';
+import Footer from '../components/footer/Footer';
+import style from '../components/teacherPage/teacherPage.module.css';
 
-const TeacherDashboard = () => {
+const TeacherDashboard = ({id, teacher}) => {
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
-    navigate('/login/teacher'); // Redirect to login page after logout
+    navigate('/login'); // Redirect to login page after logout
   };
 
   if (!isAuthenticated) {
@@ -16,10 +20,15 @@ const TeacherDashboard = () => {
   }
 
   return (
-    <div>
-      <h2>Student Dashboard</h2>
+    <>
+       <Header/>
+            <Link to={`/teachers/${id}`} className={style.register}>
+                Мій профіль
+                {teacher && <TeacherProfileCard id={id} />}
+            </Link>
+            <Footer/>
       <button onClick={handleLogout}>Logout</button>
-    </div>
+    </>
   );
 };
 

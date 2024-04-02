@@ -22,14 +22,16 @@ const createTeacher = (newObject) => {
 
 
 const getById = (id) => {
-  const request = axios.get(`${baseUrl}/${id}`);
-  return request.then((response) => response.data).catch((error) => {
+  const request = axios.get(`${baseUrl}/teachers/${id}`);
+  return request.then((response) => response.data)
+  .catch((error) => {
     console.error('Error fetching teacher by ID:', error);
     throw error; // Rethrow the error to handle it in the component
   });
 };
+
 const teacherLogin = (username, password) => {
-  return axios.post(`${baseUrl}/login/teacher`, { username, password })
+  return axios.post(`${baseUrl}/teachers`, { username, password })
     .then(response => {
       // Assuming the server returns user data including role upon successful login
       return response.data;
