@@ -93,6 +93,8 @@ const [teacherData, setTeacherData] = useState({
     teachersService.createTeacher(teacherData)
       .then(response => {
         alert('Teacher registered successfully!');
+        login();
+        navigate('/teacher');
         // Optionally redirect the user to a confirmation page
       })
       .catch(error => {
@@ -110,8 +112,7 @@ const [teacherData, setTeacherData] = useState({
         }
       });
     // Simulate registration (replace with actual registration logic)
-    login();
-    navigate('/teachers'); // Redirect after successful registration
+    // Redirect after successful registration
   };
 
   return (
