@@ -57,21 +57,20 @@ const Login = () => {
 
   return (
     <div>
-      <h2>Login</h2>
       {error && <div>{error}</div>}
       <form onSubmit={handleSubmit}>
          <div>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="name">Ім'я:</label>
           <input
             type="text"
-            id="username"
-            name="username"
+            id="name"
+            name="name"
             value={formData.name}
             onChange={handleChange}
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Пароль:</label>
           <input
             type="password"
             id="password"
@@ -81,19 +80,19 @@ const Login = () => {
           />
         </div>
         <div>
-          <label htmlFor="role">Role:</label>
+          <label htmlFor="role">Увійти як:</label>
           <select
             id="role"
             name="role"
             value={formData.role}
             onChange={handleChange}
           >
-            <option value="">Select role</option>
-            <option value="teacher">Teacher</option>
-            <option value="student">Student</option>
+            <option value="">Оберіть</option>
+            <option value="teacher">Вчитель</option>
+            <option value="student">Учень</option>
           </select>
         </div>
-        <button type="submit" disabled={loading}>Login</button>
+        <button type="submit" disabled={loading}>Увійти</button>
         {loading && <div>Loading...</div>}
       </form>
     </div>

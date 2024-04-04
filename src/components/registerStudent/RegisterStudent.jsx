@@ -23,12 +23,6 @@ const RegisterStudent = () => {
     }));
   };
 
-  // const handleRegistration = () => {
-  //   // Simulate registration (replace with actual registration logic)
-  //   login();
-  //   navigate('/login/students'); // Redirect after successful registration
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     studentsService.createStudent(formData)
@@ -48,20 +42,20 @@ const RegisterStudent = () => {
 
   return (
     <div>
-      <h2>Student Registration</h2>
+      {/* <h2>Student Registration</h2> */}
       <form onSubmit={handleSubmit}encType="multipart/form-data" method="post">
          <div>
-           <label htmlFor="username">Username:</label>
+           <label htmlFor="name">Ім'я:</label>
            <input
              type="text"
-            id="username"
-             name="username"
+            id="name"
+             name="name"
              value={formData.name}
              onChange={handleChange}
            />
          </div>
          <div>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Пароль:</label>
            <input
              type="password"
              id="password"
