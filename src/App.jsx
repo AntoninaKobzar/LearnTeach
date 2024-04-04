@@ -18,13 +18,13 @@ function App() {
     <AuthProvider>
     <Router>
       <Routes>
-        <Route path="api/" element={<MainPage />} />
-        <Route path="api/login" element={<Login />} />
-        <Route path="api/student" element={<StudentDashboard />} />
-        <Route path="api/teacher" element={<TeacherDashboard />} />
-        <Route path="api/students" element={<RegisterStudent />} />
-        <Route path="api/teachers" element={<TeacherRegistrationForm />} />
-        <Route path="api/teachers/:id" element={<TeacherProfileCard />}/>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/student" element={<StudentDashboard />} />
+        <Route path="/teacher" element={<TeacherDashboard />} />
+        <Route path="/students" element={<RegisterStudent />} />
+        <Route path="/teachers" element={<TeacherRegistrationForm />} />
+        <Route path="/teachers/:id" element={<TeacherProfileCard />}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
