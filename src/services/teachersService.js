@@ -3,7 +3,7 @@ import axios from 'axios';
 const baseUrl = '/api';
 
 const getAll = () => {
-  const request = axios.get(baseUrl);
+  const request = axios.get(`${baseUrl}/teachers`);
   return request.then((response) => response.data).catch((error) => {
     console.error('Error fetching all teachers:', error);
     throw error; // Rethrow the error to handle it in the component
@@ -31,7 +31,7 @@ const getById = (id) => {
 };
 
 const teacherLogin = (username, password) => {
-  return axios.post(`${baseUrl}/teachers`, { username, password })
+  return axios.post(`${baseUrl}/teacher`, { username, password })
     .then(response => {
       // Assuming the server returns user data including role upon successful login
       return response.data;
