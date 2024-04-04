@@ -1,6 +1,6 @@
 ////import axios from 'axios';
 
-//const baseUrl = 'http://localhost:3001'; // Base URL of your API
+//const baseUrl = '/api'; // Base URL of your API
 
 // const teacherLogin = (username, password) => {
 //   return axios.post(`${baseUrl}/login/teacher`, { username, password })
