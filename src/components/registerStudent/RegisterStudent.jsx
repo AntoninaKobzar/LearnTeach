@@ -8,7 +8,7 @@ const RegisterStudent = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
     password: '',
     email: '',
     role:'student',
@@ -56,7 +56,7 @@ const RegisterStudent = () => {
              type="text"
             id="username"
              name="username"
-             value={formData.username}
+             value={formData.name}
              onChange={handleChange}
            />
          </div>

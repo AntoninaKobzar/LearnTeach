@@ -10,7 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
-        username: '',
+        name: '',
         password: '',
         role: '' // Add a field to specify the user role (teacher or student)
       });
@@ -33,13 +33,13 @@ const Login = () => {
         try {
           let userData;
           if (formData.role === 'teacher') {
-            userData = await teachersService.teacherLogin(formData.username, formData.password);
+            userData = await teachersService.teacherLogin(formData.name, formData.password);
             // Handle teacher login
             console.log('Teacher logged in:', userData);
             login();
             navigate('/teacher'); 
           } else if (formData.role === 'student') {
-            userData = await studentsService.studentLogin(formData.username, formData.password);
+            userData = await studentsService.studentLogin(formData.name, formData.password);
             // Handle student login
             console.log('Student logged in:', userData);
             login();
@@ -66,7 +66,7 @@ const Login = () => {
             type="text"
             id="username"
             name="username"
-            value={formData.username}
+            value={formData.name}
             onChange={handleChange}
           />
         </div>
