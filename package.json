@@ -9,7 +9,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "server":"json-server -p3001 --watch db.json",
-    "build:ui": "shx rm -rf dist && cd ../LearnTeach && npm run build && shx cp -r dist ../../backend/VchusiaVchu",
+    "build:ui": "shx rm -rf dist && cd ../LearnTeach && npm run build && shx cp -r dist ../backend/VchusiaVchu",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "dependencies": {
