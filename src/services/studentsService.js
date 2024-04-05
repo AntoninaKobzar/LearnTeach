@@ -4,7 +4,7 @@ const baseUrl = '/api';
 
 
 const studentLogin = (username, password) => {
-  return axios.post(`${baseUrl}/student`, { username, password })
+  return axios.post(`${baseUrl}/students`, { username, password })
     .then(response => {
       // Assuming the server returns user data including role upon successful login
       return response.data;

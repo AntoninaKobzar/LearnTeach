@@ -31,7 +31,7 @@ const getById = (id) => {
 };
 
 const teacherLogin = (username, password) => {
-  return axios.post(`${baseUrl}/teacher`, { username, password })
+  return axios.post(`${baseUrl}/teachers`, { username, password })
     .then(response => {
       // Assuming the server returns user data including role upon successful login
       return response.data;

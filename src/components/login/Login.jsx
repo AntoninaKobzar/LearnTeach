@@ -33,17 +33,17 @@ const Login = () => {
         try {
           let userData;
           if (formData.role === 'teacher') {
-            userData = await teachersService.teacherLogin(formData.name, formData.password);
+            userData = await teachersService.teacherLogin(formData.name, formData.password,formData.role);
             // Handle teacher login
             console.log('Teacher logged in:', userData);
             login();
-            navigate('/teacher'); 
+            navigate('/teachers'); 
           } else if (formData.role === 'student') {
-            userData = await studentsService.studentLogin(formData.name, formData.password);
+            userData = await studentsService.studentLogin(formData.name, formData.password,formData.role);
             // Handle student login
             console.log('Student logged in:', userData);
             login();
-            navigate('/student'); 
+            navigate('/students'); 
           } else {
             throw new Error('Invalid role');
           }
