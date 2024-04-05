@@ -3,15 +3,14 @@ import axios from 'axios';
 const baseUrl = '/api'; 
 
 
-const studentLogin = (username, password) => {
-  return axios.post(`${baseUrl}/students`, { username, password })
+const studentLogin = (username, password,role) => {
+  return axios.post(`${baseUrl}/students`, { username, password,role })
     .then(response => {
-      // Assuming the server returns user data including role upon successful login
       return response.data;
     })
     .catch(error => {
       console.error('Student login failed:', error);
-      throw error; // Rethrow the error to handle it in the component
+      throw error;
     });
 };
 
@@ -19,12 +18,11 @@ const createStudent = (newObject) => {
   const request= axios.post(`${baseUrl}/students`, newObject);
 return request
     .then(response => {
-      // Assuming the server returns user data upon successful registration
       return response.data;
     })
     .catch(error => {
       console.error('Error registering:', error);
-      throw error; // Rethrow the error to handle it in the component
+      throw error;
     });
 };
 

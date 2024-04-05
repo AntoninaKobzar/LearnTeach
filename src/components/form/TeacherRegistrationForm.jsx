@@ -13,6 +13,7 @@ const TeacherRegistrationForm = ({ close }) => {
   const [subjects, setSubjects] = useState([]);
 const [teacherData, setTeacherData] = useState({
     photo: '',
+    username:'',
      name: '',
      email: '',
      password: '', 
@@ -129,6 +130,15 @@ const [teacherData, setTeacherData] = useState({
           onChange={handleChange}
         />
         <br />
+        <label htmlFor="username">Нікнейм:</label>
+           <input
+             type="text"
+            id="username"
+             name="username"
+             value={teacherData.username}
+             onChange={handleChange}
+           />
+          <br/>
         <label htmlFor="name">Ім'я:</label>
         <input
           id="name"

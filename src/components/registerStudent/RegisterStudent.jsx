@@ -8,11 +8,13 @@ const RegisterStudent = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
+    photo: '',
+    username:'',
     name: '',
     password: '',
     email: '',
     role:'student',
-    // Add other fields as needed for registration
+    
   });
 
   const handleChange = (e) => {
@@ -44,7 +46,26 @@ const RegisterStudent = () => {
     <div>
       {/* <h2>Student Registration</h2> */}
       <form onSubmit={handleSubmit}encType="multipart/form-data" method="post">
-         <div>
+         
+      <div>
+      <label htmlFor="photo">Фото:</label>
+        <input
+          id="photo"
+          type="file"
+          name="photo"
+          value={formData.photo}
+          onChange={handleChange}
+        />
+        <br />
+           <label htmlFor="username">Нікнейм:</label>
+           <input
+             type="text"
+            id="username"
+             name="username"
+             value={formData.username}
+             onChange={handleChange}
+           />
+         </div><div>
            <label htmlFor="name">Ім'я:</label>
            <input
              type="text"

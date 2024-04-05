@@ -6,7 +6,7 @@ const getAll = () => {
   const request = axios.get(`${baseUrl}/teachers`);
   return request.then((response) => response.data).catch((error) => {
     console.error('Error fetching all teachers:', error);
-    throw error; // Rethrow the error to handle it in the component
+    throw error; 
   });
 };
 const createTeacher = (newObject) => {
@@ -26,19 +26,21 @@ const getById = (id) => {
   return request.then((response) => response.data)
   .catch((error) => {
     console.error('Error fetching teacher by ID:', error);
-    throw error; // Rethrow the error to handle it in the component
+    throw error;
   });
 };
 
-const teacherLogin = (username, password) => {
-  return axios.post(`${baseUrl}/teachers`, { username, password })
+const teacherLogin = (username, password, role) => {
+  return axios.post(`${baseUrl}/teachers`, { username, password, role })
     .then(response => {
-      // Assuming the server returns user data including role upon successful login
-      return response.data;
+      if(role==='teacher'){
+
+        return response.data;
+      }
     })
     .catch(error => {
       console.error('Teacher login failed:', error);
-      throw error; // Rethrow the error to handle it in the component
+      throw error;
     });
 };
 

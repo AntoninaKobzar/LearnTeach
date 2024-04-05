@@ -10,9 +10,9 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
-        name: '',
+        username: '',
         password: '',
-        role: '' // Add a field to specify the user role (teacher or student)
+        role: 'teacher' || 'student'
       });
       const [loading, setLoading] = useState(false);
       const [error, setError] = useState(null);
@@ -29,21 +29,28 @@ const Login = () => {
         e.preventDefault();
         setError(null);
         setLoading(true);
-    
+      
         try {
           let userData;
           if (formData.role === 'teacher') {
-            userData = await teachersService.teacherLogin(formData.name, formData.password,formData.role);
-            // Handle teacher login
+            userData = await teachersService.teacherLogin(formData.username, formData.password, formData.role);
             console.log('Teacher logged in:', userData);
-            login();
-            navigate('/teachers'); 
+            if (userData.role === formData.role) { // Check the role received from the server
+              login();
+              navigate('/teacher');
+            } else {
+              throw new Error('You are not a teacher');
+              navigate('/login');
+            }
           } else if (formData.role === 'student') {
-            userData = await studentsService.studentLogin(formData.name, formData.password,formData.role);
-            // Handle student login
+            userData = await studentsService.studentLogin(formData.username, formData.password, formData.role);
             console.log('Student logged in:', userData);
-            login();
-            navigate('/students'); 
+            if (userData.role === formData.role) { // Check the role received from the server
+              login();
+              navigate('/student');
+            } else {
+              throw new Error('You are not a student');
+            }
           } else {
             throw new Error('Invalid role');
           }
@@ -60,12 +67,12 @@ const Login = () => {
       {error && <div>{error}</div>}
       <form onSubmit={handleSubmit}>
          <div>
-          <label htmlFor="name">Ім'я:</label>
+          <label htmlFor="username">Нікнейм:</label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={formData.name}
+            id="username"
+            name="username"
+            value={formData.username}
             onChange={handleChange}
           />
         </div>
