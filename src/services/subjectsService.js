@@ -1,10 +1,10 @@
-import axios from 'axios'
-const baseUrl = '/api/subjects'
+// import axios from 'axios'
+// const baseUrl = '/api/subjects'
 
-const getAll = () => {
-  const request = axios.get(baseUrl);
-  return request.then((response) => response.data);
-};
+// const getAll = () => {
+//   const request = axios.get(baseUrl);
+//   return request.then((response) => response.data);
+// };
 
 
   

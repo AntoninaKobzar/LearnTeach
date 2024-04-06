@@ -1,14 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './components/mainPage/MainPage';
-import TeacherRegistrationForm from './components/form/TeacherRegistrationForm';
-import RegisterStudent from './components/registerStudent/RegisterStudent'
-import Login from './components/login/Login';
 import  AuthProvider  from './hooks/AuthContext';
-import StudentDashboard from './components/pupilPage/StudentDashboard';
-import TeacherDashboard from './components/TeacherDashboard';
-import TeacherProfileCard from './components/teacherProfile/TeacherProfileCard';
 import NotFound from './components/NotFound';
+import RegistrationComponent from './components/RegistrationComponent';
+import LoginComponent from './components/LoginComponent';
 import "./App.css";
+// import TeacherRegistrationForm from './components/form/TeacherRegistrationForm';
+// import RegisterStudent from './components/registerStudent/RegisterStudent'
+// import Login from './components/login/Login';
+// import StudentDashboard from './components/pupilPage/StudentDashboard';
+// import TeacherDashboard from './components/TeacherDashboard';
+// import TeacherProfileCard from './components/teacherProfile/TeacherProfileCard';
 
 
 
@@ -19,12 +21,12 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/student" element={<StudentDashboard />} />
-        <Route path="/teacher" element={<TeacherDashboard />} />
-        <Route path="/students" element={<RegisterStudent />} />
-        <Route path="/teachers" element={<TeacherRegistrationForm />} />
-        <Route path="/teachers/:id" element={<TeacherProfileCard />}/>
+        <Route path="/auth/login" element={<LoginComponent />} />
+        {/* <Route path="/student" element={<StudentDashboard />} /> */}
+        {/* <Route path="/teacher" element={<TeacherDashboard />} /> */}
+        <Route path="/auth/register" element={<RegistrationComponent />} />
+        {/* <Route path="/teachers" element={<TeacherRegistrationForm />} /> */}
+        {/* <Route path="/teachers/:id" element={<TeacherProfileCard />}/> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
