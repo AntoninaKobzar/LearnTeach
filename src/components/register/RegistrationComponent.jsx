@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import getAll from '../../services/subjectsService';
+import {getAll} from '../../services/subjectsService';
 import style from './register.module.css'
 
 const RegistrationComponent = () => {
@@ -15,6 +15,7 @@ const RegistrationComponent = () => {
   const [price, setPrice] = useState('');
   const [online, setOnline] = useState(false);
   const [offline, setOffline] = useState(false);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +49,7 @@ const RegistrationComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const initialSubjects = await getAll.getAll();
+        const initialSubjects = await getAll();
         setSubjects(initialSubjects);
       } catch (error) {
         console.error('Error fetching subjects:', error);
