@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './components/mainPage/MainPage';
 import  AuthProvider  from './hooks/AuthContext';
 import NotFound from './components/NotFound';
-import RegistrationComponent from './components/RegistrationComponent';
+import RegistrationComponent from './components/register/RegistrationComponent';
 import LoginComponent from './components/LoginComponent';
 import "./App.css";
 // import TeacherRegistrationForm from './components/form/TeacherRegistrationForm';

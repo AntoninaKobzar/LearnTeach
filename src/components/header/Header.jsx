@@ -5,7 +5,7 @@ import UserIcon from '../../assets/images/profile.svg';
 import CloseIcon from '../../assets/images/close-1.svg';
 import BurgerMenu from '../burgermenu/BurgerMenu';
 import Modal from '../modal/Modal';
-import RegistrationComponent from '../RegistrationComponent';
+import RegistrationComponent from '../register/RegistrationComponent';
 import LoginComponent from '../LoginComponent';
 // import TeacherRegistrationForm from '../form/TeacherRegistrationForm';
 // import RegisterStudent from '../registerStudent/RegisterStudent';

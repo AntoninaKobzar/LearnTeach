@@ -1,0 +1,72 @@
+.form{
+    position: absolute;
+    z-index: 10;
+    overflow: auto;
+    top:5px;
+    left:10px;
+    background-color: var(--primary-color);
+    width: 300px; 
+    height: 800px;
+    display: flex;
+   justify-content: flex-start;
+   align-items: flex-start;
+    flex-direction: column;
+    gap:5px;
+    padding: 20px 20px;
+    border: 1px dashed var(--accent-color);
+    
+}
+label{
+    font-family: AvantGardeC;
+    font-size: 14px;
+    line-height: 1.6;
+    color:var(--accent-color);
+    font-weight: bold;
+}
+input{
+    overflow: hidden;
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    min-height: 30px;
+}
+.btn{
+    display: flex;
+    margin-top: 20px;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-width: 100px;
+    height: 35px;
+    border:transparent;
+    border-radius: 10px;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    font-family: AvantGardeC,sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow:2px 2px 4px var(--accent-color3);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+button:hover{
+    background-color: var(--secondary-color);
+    color: var(--bg-color);  
+}
+.close{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+     cursor: pointer;
+     color: var(--accent-color);
+ }
+ select{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: cursive, sans-serif;
+    outline: 0;
+    background: #2ecc71;
+    color: #fff;
+    border: 1px solid crimson;
+    padding: 4px;
+    border-radius: 9px;
+ } 
