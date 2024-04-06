@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import getAll from '../../services/subjectsService';
 import style from './register.module.css'
 
 const RegistrationComponent = () => {
@@ -44,6 +45,18 @@ const RegistrationComponent = () => {
     });
     // Handle response
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const initialSubjects = await getAll.getAll();
+        setSubjects(initialSubjects);
+      } catch (error) {
+        console.error('Error fetching subjects:', error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array means this effect runs only once on mount
 
   const handleInfoChange = (e) => {
      const { name, value } = e.target;

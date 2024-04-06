@@ -1,30 +1,34 @@
-// import axios from 'axios'
-// const baseUrl = '/api/subjects'
+import axios from 'axios';
+const baseUrl = '/api/subjects';
 
-// const getAll = () => {
-//   const request = axios.get(baseUrl);
-//   return request.then((response) => response.data);
-// };
+// Function to get a single subject by its ID
+const getById = async (id) => {
+  try {
+    const response = await axios.get(`${baseUrl}/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
+// Function to post a new subject
+const post = async (subjectData) => {
+  try {
+    const response = await axios.post(baseUrl, subjectData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
-  
+// Function to get all subjects
+const getAll = async () => {
+  try {
+    const response = await axios.get(baseUrl);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
-
-// const create = newObject => {
-//   const request = axios.post(baseUrl, newObject)
-//   return request.then(response => response.data)
-// }
-
-// const updateSubject = (id, newObject) => {
-//   const request = axios.put(`${baseUrl}/${id}`, newObject)
-//   return request.then(response => response.data)
-// }
-// const deleteSubject = (id) => {
-//     const request = axios.delete(`${baseUrl}/${id}`);
-//     return request.then((response) => response.data);
-//   };
-
-export default { 
-  getAll,
-//   create,deleteSubject,updateSubject
-}
+export { getAll, getById, post };
