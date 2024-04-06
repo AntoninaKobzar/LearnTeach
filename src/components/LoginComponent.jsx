@@ -6,7 +6,7 @@ const LoginComponent = () => {
 
   const handleLogin = async () => {
     // Send login data to backend
-    const response = await fetch('/api/login', {
+    const response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
