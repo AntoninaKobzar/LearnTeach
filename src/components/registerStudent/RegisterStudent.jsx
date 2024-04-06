@@ -8,12 +8,11 @@ const RegisterStudent = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
-    photo: '',
-    username:'',
-    name: '',
-    password: '',
-    email: '',
-    role:'student',
+    photo: "",
+    username:"",
+    password: "",
+    email: "",
+    role:"student",
     
   });
 
@@ -57,21 +56,12 @@ const RegisterStudent = () => {
           onChange={handleChange}
         />
         <br />
-           <label htmlFor="username">Нікнейм:</label>
+           <label htmlFor="username">Ім'я:</label>
            <input
              type="text"
             id="username"
              name="username"
              value={formData.username}
-             onChange={handleChange}
-           />
-         </div><div>
-           <label htmlFor="name">Ім'я:</label>
-           <input
-             type="text"
-            id="name"
-             name="name"
-             value={formData.name}
              onChange={handleChange}
            />
          </div>

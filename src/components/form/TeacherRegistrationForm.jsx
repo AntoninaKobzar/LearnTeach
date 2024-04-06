@@ -12,18 +12,17 @@ const TeacherRegistrationForm = ({ close }) => {
   const { login } = useAuth();
   const [subjects, setSubjects] = useState([]);
 const [teacherData, setTeacherData] = useState({
-    photo: '',
-    username:'',
-     name: '',
-     email: '',
-     password: '', 
-     role:'teacher',
+    photo: "",
+    username:"",
+     email: "",
+     password: "", 
+     role:"teacher",
      info: {
       subjects: [],
-      education: '',
-      experience: '',
-       text: '',
-      price: '',
+      education: "",
+      experience: "",
+       text: "",
+      price: "",
        online: false,
        offline: false,
      },
@@ -87,7 +86,7 @@ const [teacherData, setTeacherData] = useState({
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!teacherData.email || !teacherData.password || !teacherData.name) {
+    if (!teacherData.email || !teacherData.password || !teacherData.username) {
       alert('Please fill out all required fields.');
       return;
     }
@@ -130,7 +129,7 @@ const [teacherData, setTeacherData] = useState({
           onChange={handleChange}
         />
         <br />
-        <label htmlFor="username">Нікнейм:</label>
+        <label htmlFor="username">Ім'я:</label>
            <input
              type="text"
             id="username"
@@ -139,15 +138,7 @@ const [teacherData, setTeacherData] = useState({
              onChange={handleChange}
            />
           <br/>
-        <label htmlFor="name">Ім'я:</label>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          value={teacherData.name}
-          onChange={handleChange}
-        />
-        <br />
+       
         <label htmlFor="email">Email:</label>
         <input
           id="email"

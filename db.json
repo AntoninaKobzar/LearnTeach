@@ -39,75 +39,6 @@
   ],
   "teachers": [
     {
-      "photo": "img",
-      "name": "Ann",
-      "e-mail": "example@gmail.com",
-      "password": "111",
-      "info": {
-        "subject": [],
-        "education": "",
-        "experience": "",
-        "text": "",
-        "price": "200",
-        "on-line": false,
-        "off-line": false
-      },
-      "id": "b232"
-    },
-    {
-      "id": "a855",
-      "photo": "C:\\fakepath\\img1.jpg",
-      "name": "Wal",
-      "email": "antonina.kobzar@gmail.com",
-      "password": "123456",
-      "info": {
-        "subjects": [
-          "Англійська мова"
-        ],
-        "education": "University",
-        "experience": "10 years",
-        "text": "I am a teacher",
-        "price": "300",
-        "online": true,
-        "offline": false
-      }
-    },
-    {
-      "id": "a0fc",
-      "photo": "C:\\fakepath\\img5.jpg",
-      "name": "Ann",
-      "email": "ann@gmail.com",
-      "password": "111111",
-      "info": {
-        "subjects": [],
-        "education": "",
-        "experience": "",
-        "text": "",
-        "price": "",
-        "online": false,
-        "offline": false
-      }
-    },
-    {
-      "id": "a562",
-      "photo": "C:\\fakepath\\img6.jpg",
-      "name": "Bonny",
-      "email": "bonny@gmail.com",
-      "password": "123456",
-      "role": "teacher",
-      "info": {
-        "subjects": [
-          "Англійська мова"
-        ],
-        "education": "University",
-        "experience": "5",
-        "text": "goog teacher",
-        "price": "250",
-        "online": true,
-        "offline": false
-      }
-    },
-    {
       "id": "3456",
       "username": "Bonny",
       "password": "123456"
@@ -142,57 +73,7 @@
       "username": "Bonny",
       "password": "123456"
     },
-    {
-      "id": "46a9",
-      "photo": "C:\\fakepath\\img6.jpg",
-      "name": "Lina",
-      "email": "lina@gmail.com",
-      "password": "999999",
-      "role": "teacher",
-      "info": {
-        "subjects": [
-          "Англійська мова",
-          "Математика",
-          "Українська мова",
-          "Німецька мова"
-        ],
-        "education": "University",
-        "experience": "10 years",
-        "text": "I am a good teacher",
-        "price": "300",
-        "online": true,
-        "offline": false
-      }
-    },
-    {
-      "id": "7fb6",
-      "username": "Lina",
-      "password": "999999"
-    },
-    {
-      "id": "3107",
-      "photo": "C:\\fakepath\\img1.jpg",
-      "name": "Hanna",
-      "email": "hanna@gmail.com",
-      "password": "222222",
-      "role": "teacher",
-      "info": {
-        "subjects": [
-          "Математика"
-        ],
-        "education": "University",
-        "experience": "5",
-        "text": "I am a teacher",
-        "price": "250",
-        "online": true,
-        "offline": false
-      }
-    },
-    {
-      "id": "006f",
-      "username": "Hanna",
-      "password": "222222"
-    },
+   
     {
       "id": "693c",
       "username": "Kolin",

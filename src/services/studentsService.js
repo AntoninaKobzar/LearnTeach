@@ -3,8 +3,8 @@ import axios from 'axios';
 const baseUrl = '/api'; 
 
 
-const studentLogin = (username, password,role) => {
-  return axios.post(`${baseUrl}/students`, { username, password,role })
+const studentLogin = (username, password) => {
+  return axios.post(`${baseUrl}/students`, { username, password })
     .then(response => {
       return response.data;
     })

@@ -30,13 +30,10 @@ const getById = (id) => {
   });
 };
 
-const teacherLogin = (username, password, role) => {
-  return axios.post(`${baseUrl}/teachers`, { username, password, role })
+const teacherLogin = (username, password) => {
+  return axios.post(`${baseUrl}/teachers`, { username, password})
     .then(response => {
-      if(role==='teacher'){
-
         return response.data;
-      }
     })
     .catch(error => {
       console.error('Teacher login failed:', error);

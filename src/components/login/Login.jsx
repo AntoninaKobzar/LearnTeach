@@ -10,9 +10,9 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
-        username: '',
-        password: '',
-        role: 'teacher' || 'student'
+        username: "",
+        password: "",
+        role: "teacher" || "student"
       });
       const [loading, setLoading] = useState(false);
       const [error, setError] = useState(null);
@@ -67,7 +67,7 @@ const Login = () => {
       {error && <div>{error}</div>}
       <form onSubmit={handleSubmit}>
          <div>
-          <label htmlFor="username">Нікнейм:</label>
+          <label htmlFor="username">Ім'я:</label>
           <input
             type="text"
             id="username"
