@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = '/api/subjects';
+const baseUrl = '/subjects';
 
 // Function to get a single subject by its ID
 const getById = async (id) => {
@@ -31,4 +31,4 @@ const getAll = async () => {
   }
 };
 
-export { getAll, getById, post };
+export default { getAll, getById, post };
