@@ -8,8 +8,8 @@
     width: 300px; 
     height: 800px;
     display: flex;
-   justify-content: flex-start;
-   align-items: flex-start;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
     gap:5px;
     padding: 20px 20px;
@@ -63,10 +63,14 @@ button:hover{
     margin-bottom: 10px;
     margin-top: 10px;
     font-family: cursive, sans-serif;
-    outline: 0;
     background: #2ecc71;
     color: #fff;
-    border: 1px solid crimson;
     padding: 4px;
     border-radius: 9px;
+    min-height: 100px;
+   
  } 
+ textarea{
+    min-width: 250px;
+    min-height: 40px;
+ }

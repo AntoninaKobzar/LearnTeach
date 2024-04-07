@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = '/subjects';
+const baseUrl = '/api/subjects';
 
 // Function to get a single subject by its ID
 const getById = async (id) => {
@@ -21,7 +21,6 @@ const post = async (subjectData) => {
   }
 };
 
-// Function to get all subjects
 const getAll = async () => {
   try {
     const response = await axios.get(baseUrl);
@@ -30,5 +29,6 @@ const getAll = async () => {
     throw error;
   }
 };
+
 
 export default { getAll, getById, post };

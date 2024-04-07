@@ -1,161 +1,214 @@
 import React, { useState,useEffect } from 'react';
-// import {getAll} from '../../services/subjectsService';
+import { useNavigate } from 'react-router-dom';
 import subjectsService from '../../services/subjectsService';
+import authService from '../../services/authService';
+import CloseIcon from '../../assets/images/close-1.svg'
+
 import style from './register.module.css'
 
 const RegistrationComponent = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
-  const [username, setUsername] = useState('');
-  const [photo, setPhoto] = useState('');
+  const[role,setRole]=useState();
   const [subjects, setSubjects] = useState([]);
-  const [education, setEducation] = useState('');
-  const [experience, setExperience] = useState('');
-  const [text, setText] = useState('');
-  const [price, setPrice] = useState('');
-  const [online, setOnline] = useState(false);
-  const [offline, setOffline] = useState(false);
-  
+  const [registrationError, setRegistrationError] = useState(null);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [formData,setFormData]= useState({
+    username:"",
+    email:"",
+    password:"",
+    role:"",
+    photo:null,
+    photoPreview: null,
+    info: {
+      subjects:[],
+      education:"",
+      experience:"",
+      text:"",
+      price:"",
+      online:false,
+      offline:false
+    }
+    })
+
+ 
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = {
-      username,
-      email,
-      password,
-      role,
-      photo,
-      info: {
-        subjects,
-        education,
-        experience,
-        text,
-        price,
-        online,
-        offline
-      }
-    };
-
-    // Send registration data to backend
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
-    // Handle response
+    if (!formData.email || !formData.password || !formData.username) {
+      alert('Please fill out all required fields.');
+      return;
+    }
+  
+    try {
+      const response = await authService.register(formData);
+      setRegistrationSuccess(true);
+      alert('Teacher registered successfully!');
+      (formData.role === "teacher") ? navigate('/teacher') : navigate('/student');
+  
+    } catch (error) {
+      setRegistrationError(error.message || 'Registration failed');
+      console.error('Registration error:', error);
+    }
   };
+ 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const initialSubjects = await subjectsService.getAll();
-        setSubjects(initialSubjects);
-        console.log(initialSubjects)
-      } catch (error) {
+    subjectsService.getAll()
+      .then(allSubjects => {
+        setSubjects(allSubjects);
+      })
+      .catch(error => {
         console.error('Error fetching subjects:', error);
-      }
-    };
-    fetchData();
-  }, []); // Empty dependency array means this effect runs only once on mount
+      });
+  }, []);
 
-  const handleInfoChange = (e) => {
+  const handleChange = (e) => {
      const { name, value } = e.target;
-     setTeacherData(prevState => ({
-       ...prevState,
-       info: {
-         ...prevState.info,
-         [name]: value
+     setFormData(prevState => ({
+      ...prevState,
+       [name]: value
+     }));
+   };
+   const handleInfoChange = (e) => {
+         const { name, value } = e.target;
+        setFormData(prevState => ({
+           ...prevState,
+           info: {
+            ...prevState.info,
+            [name]: value
+           }
+         }));
+       };
+
+   const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      info: {
+        ...prevState.info,
+        [name]: checked
       }
     }));
   };
 
-  const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    if (name === 'online') {
-      setOnline(checked);
-    } else if (name === 'offline') {
-      setOffline(checked);
-    }
-  };
-
-  const handleSubjectChange = (e) => {
-    const { options } = e.target;
+  const handleSubjectChange = (event) => {
+    const { options } = event.target;
     const selectedSubjects = [];
     for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
         selectedSubjects.push(options[i].value);
       }
     }
-    setSubjects(selectedSubjects);
+    setFormData(prevState => ({
+      ...prevState,
+      info: {
+        ...prevState.info,
+        subjects: selectedSubjects
+      }
+    }));
+  };
+
+  const handleRoleChange = (event) => {
+    const  selectedRole  = event.target.value;
+   setFormData(prevState=>({
+    ...prevState,role:selectedRole
+   }))
+  };
+
+  const handlePhotoChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setFormData(prevState => ({
+          ...prevState,
+          photoPreview: reader.result,
+          photo: file
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
     <div>
-      {/* <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} /> */}
-      <select value={role} onChange={(e) => setRole(e.target.value)}>
+       {registrationSuccess && <p>Registration successful!</p>}
+      {registrationError && <p>{registrationError}</p>}
+      <select value={role} onChange={handleRoleChange}>
         <option value="">Select Role</option>
         <option value="student">Student</option>
         <option value="teacher">Teacher</option>
       </select>
-      {role === 'student' && (
+      {formData.role === 'student' && (
         <form className={style.form} onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="photo">Photo:</label>
+          <img className={style.close} src={CloseIcon} width="30" height="30" alt='close icon' />
+        
+            <label htmlFor="photo">Фото:</label>
             <input
               id="photo"
               type="file"
               name="photo"
-              value={photo}
-              onChange={(e) => setPhoto(e.target.value)}
+              onChange={handlePhotoChange}
             />
-          </div>
-          <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button className={style.btn} type="submit">Register</button>
+            {formData.photoPreview && (
+        <div>
+          <h3>Photo Preview:</h3>
+          <img src={formData.photoPreview} alt="Preview" width={100} />
+        </div>
+      )}
+           <br />
+           <label htmlFor="username">Ім'я:</label>
+          <input id="username" type="text" placeholder="Катерина" name="username" value={formData.username} onChange={handleChange} />
+          <br />
+          <label htmlFor="email">Email:</label>
+      <input id="email" type="email" placeholder="kat@gmail.com" name="email" value={formData.email} onChange={handleChange} />
+      <br />
+          <label htmlFor="password">Пароль:</label>
+      <input id="password" type="password" placeholder="nkeqr8" name="password" value={formData.password} onChange={handleChange} />
+          <button onClick={handleSubmit} className={style.btn} type="submit">Зареєструватися</button>
         </form>
       )}
-      {role === 'teacher' && (
+      {formData.role === 'teacher' && (
         <form className={style.form} onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="photo">Photo:</label>
+          <img className={style.close} src={CloseIcon} width="30" height="30" alt='close icon' />
+         
+            <label htmlFor="photo">Фото:</label>
             <input
-              id="photo"
-              type="file"
-              name="photo"
-              value={photo}
-              onChange={(e) => setPhoto(e.target.value)}
+             id="photo"
+             type="file"
+             name="photo"
+             onChange={handlePhotoChange}
             />
-          </div>
-          <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <div>
           <br />
+           <label htmlFor="username">Ім'я:</label>
+          <input id="username" type="text" placeholder="Катерина"  name="username"value={formData.username} onChange={handleChange} />
+          <br />
+          <label htmlFor="email">Email:</label>
+      <input id="email" type="email" placeholder="kat@gmail.com" name="email" value={formData.email} onChange={handleChange} />
+      <br />
+          <label htmlFor="password">Пароль:</label>
+      <input id="password" type="password" placeholder="nkeqr8" name="password" value={formData.password} onChange={handleChange} />
+      <br />
         <label htmlFor="subjects">Оберіть предмети, які викладаєте:</label>
-         <select
-           id="subjects"
-           multiple
-          value={subjects}
-           onChange={handleSubjectChange}
-        >
-           {subjects.map(subject => (
-             <option key={subject.id} value={subject.name}>
-               {subject.name}
-             </option>
-           ))}
-         </select>
+  <select
+    id="subjects"
+    multiple
+    name="subjects"
+    value={formData.info.subjects}
+    onChange={handleSubjectChange}
+  >
+    {subjects.map(subject => (
+      <option key={subject.id} value={subject.name}>
+        {subject.name}
+      </option>
+    ))}
+  </select>
          <br />
          <label htmlFor="education">Освіта:</label>
          <input
            id="education"
           type="text"
           name="education"
-           value={education}
+           value={formData.info.education}
            onChange={handleInfoChange}
          />
          <br />
@@ -164,14 +217,14 @@ const RegistrationComponent = () => {
            id="experience"
            type="text"
            name="experience"
-           value={experience}
+           value={formData.info.experience}
            onChange={handleInfoChange}
-         />
+         /> років
         <br />
         <label>Про себе:</label>
          <textarea
            name="text"
-          value={text}
+          value={formData.info.text}
            onChange={handleInfoChange}
          />
          <br />
@@ -180,9 +233,9 @@ const RegistrationComponent = () => {
           id="price"
            type="text"
            name="price"
-           value={price}
+           value={formData.info.price}
            onChange={handleInfoChange}
-         />
+         /> грн/год
          <br />
          <label htmlFor="online">
           Можу займатись онлайн:
@@ -190,22 +243,23 @@ const RegistrationComponent = () => {
              id="online"
              type="checkbox"
             name="online"
-             checked={online}
+             checked={formData.info.online}
              onChange={handleCheckboxChange}
            />
          </label>
+         <br />
          <label htmlFor="offline">
            Можу займатись офлайн:
           <input
              id="offline"
             type="checkbox"
              name="offline"
-             checked={offline}
+             checked={formData.info.offline}
             onChange={handleCheckboxChange}
            />
          </label>
-          </div>
-          <button className={style.btn} type="submit">Register</button>
+         
+          <button onClick={handleSubmit} className={style.btn} type="submit">Зареєструватися</button>
         </form>
       )}
     </div>
