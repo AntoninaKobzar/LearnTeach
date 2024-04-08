@@ -1,56 +1,42 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import subjectsService from '../../services/subjectsService';
 import authService from '../../services/authService';
-import CloseIcon from '../../assets/images/close-1.svg'
-
-import style from './register.module.css'
+import Modal from '../modal/Modal';
+import CloseIcon from '../../assets/images/close-1.svg';
+import style from './register.module.css';
 
 const RegistrationComponent = () => {
-  const[role,setRole]=useState();
+  const [role, setRole] = useState();
+  const [file, setFile] = useState();
   const [subjects, setSubjects] = useState([]);
   const [registrationError, setRegistrationError] = useState(null);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
-  const [formData,setFormData]= useState({
-    username:"",
-    email:"",
-    password:"",
-    role:"",
-    photo:null,
-    photoPreview: null,
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    role: "",
+    photo: null,
     info: {
-      subjects:[],
-      education:"",
-      experience:"",
-      text:"",
-      price:"",
-      online:false,
-      offline:false
+      subjects: [],
+      education: "",
+      experience: "",
+      text: "",
+      price: "",
+      online: false,
+      offline: false
     }
-    })
+  });
+  
+  const [isModalOpen, setIsModalOpen] = useState(true);
+    const toggleModal = () => {
 
- 
+        setIsModalOpen(!isModalOpen);
+        navigate('/');
+    };
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!formData.email || !formData.password || !formData.username) {
-      alert('Please fill out all required fields.');
-      return;
-    }
-  
-    try {
-      const response = await authService.register(formData);
-      setRegistrationSuccess(true);
-      alert('Teacher registered successfully!');
-      (formData.role === "teacher") ? navigate('/teacher') : navigate('/student');
-  
-    } catch (error) {
-      setRegistrationError(error.message || 'Registration failed');
-      console.error('Registration error:', error);
-    }
-  };
- 
   useEffect(() => {
     subjectsService.getAll()
       .then(allSubjects => {
@@ -62,24 +48,25 @@ const RegistrationComponent = () => {
   }, []);
 
   const handleChange = (e) => {
-     const { name, value } = e.target;
-     setFormData(prevState => ({
+    const { name, value } = e.target;
+    setFormData(prevState => ({
       ...prevState,
-       [name]: value
-     }));
-   };
-   const handleInfoChange = (e) => {
-         const { name, value } = e.target;
-        setFormData(prevState => ({
-           ...prevState,
-           info: {
-            ...prevState.info,
-            [name]: value
-           }
-         }));
-       };
+      [name]: value
+    }));
+  };
 
-   const handleCheckboxChange = (e) => {
+  const handleInfoChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      info: {
+        ...prevState.info,
+        [name]: value
+      }
+    }));
+  };
+
+  const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     setFormData(prevState => ({
       ...prevState,
@@ -108,30 +95,59 @@ const RegistrationComponent = () => {
   };
 
   const handleRoleChange = (event) => {
-    const  selectedRole  = event.target.value;
-   setFormData(prevState=>({
-    ...prevState,role:selectedRole
-   }))
+    const selectedRole = event.target.value;
+    setFormData(prevState => ({
+      ...prevState, role: selectedRole
+    }));
   };
 
-  const handlePhotoChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setFormData(prevState => ({
-          ...prevState,
-          photoPreview: reader.result,
-          photo: file
-        }));
-      };
-      reader.readAsDataURL(file);
+  const handlePhotoChange = (e) => {
+    const selectedFile = e.target.files[0];
+    const fileUrl = URL.createObjectURL(selectedFile);
+    setFile(fileUrl);
+
+    setFormData(prevState => ({
+      ...prevState,
+      photo: fileUrl
+    }));
+  };
+
+  useEffect(() => {
+    console.log('File State:', file);
+  }, [file]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.email || !formData.password || !formData.username) {
+      alert('Please fill out all required fields.');
+      return;
+    }
+
+    try {
+      const response = await authService.register(formData);
+
+      if (response.status === 200) {
+        // Registration successful
+        setRegistrationSuccess(true);
+        alert('Teacher registered successfully!');
+        (formData.role === "teacher") ? navigate('/teacher') : navigate('/student');
+      } else {
+        // Handle other status codes or errors
+        // Example: Registration failed due to validation error
+        setRegistrationError('Registration failed due to validation error');
+      }
+    } catch (error) {
+      setRegistrationError(error.message || 'Registration failed');
+      console.error('Registration error:', error);
     }
   };
 
   return (
+    <Modal  isOpen={isModalOpen} onClose={toggleModal}>
+         <img className={style.close} src={CloseIcon} width="30" height="30" alt='close icon' onClick={toggleModal} />
     <div>
-       {registrationSuccess && <p>Registration successful!</p>}
+      
+      {registrationSuccess && <p>Registration successful!</p>}
       {registrationError && <p>{registrationError}</p>}
       <select value={role} onChange={handleRoleChange}>
         <option value="">Select Role</option>
@@ -140,131 +156,125 @@ const RegistrationComponent = () => {
       </select>
       {formData.role === 'student' && (
         <form className={style.form} onSubmit={handleSubmit}>
-          <img className={style.close} src={CloseIcon} width="30" height="30" alt='close icon' />
-        
-            <label htmlFor="photo">Фото:</label>
-            <input
-              id="photo"
-              type="file"
-              name="photo"
-              onChange={handlePhotoChange}
-            />
-            {formData.photoPreview && (
-        <div>
-          <h3>Photo Preview:</h3>
-          <img src={formData.photoPreview} alt="Preview" width={100} />
-        </div>
-      )}
-           <br />
-           <label htmlFor="username">Ім'я:</label>
+       
+          <label htmlFor="photo">Фото:</label>
+          <input
+            id="photo"
+            type="file"
+            name="photo"
+            onChange={handlePhotoChange}
+          />
+          <img src={file} alt="Uploaded" width={100}/>
+          <br />
+          <label htmlFor="username">Ім'я:</label>
           <input id="username" type="text" placeholder="Катерина" name="username" value={formData.username} onChange={handleChange} />
           <br />
           <label htmlFor="email">Email:</label>
-      <input id="email" type="email" placeholder="kat@gmail.com" name="email" value={formData.email} onChange={handleChange} />
-      <br />
+          <input id="email" type="email" placeholder="kat@gmail.com" name="email" value={formData.email} onChange={handleChange} />
+          <br />
           <label htmlFor="password">Пароль:</label>
-      <input id="password" type="password" placeholder="nkeqr8" name="password" value={formData.password} onChange={handleChange} />
-          <button onClick={handleSubmit} className={style.btn} type="submit">Зареєструватися</button>
+          <input id="password" type="password" placeholder="nkeqr8" name="password" value={formData.password} onChange={handleChange} />
+          <button className={style.btn} type="submit">Зареєструватися</button>
         </form>
       )}
       {formData.role === 'teacher' && (
         <form className={style.form} onSubmit={handleSubmit}>
-          <img className={style.close} src={CloseIcon} width="30" height="30" alt='close icon' />
-         
-            <label htmlFor="photo">Фото:</label>
-            <input
-             id="photo"
-             type="file"
-             name="photo"
-             onChange={handlePhotoChange}
-            />
+          <label htmlFor="photo">Фото:</label>
+          <input
+            id="photo"
+            type="file"
+            name="photo"
+            onChange={handlePhotoChange}
+          />
+          <img src={file} alt="Uploaded"width={100} />
           <br />
-           <label htmlFor="username">Ім'я:</label>
-          <input id="username" type="text" placeholder="Катерина"  name="username"value={formData.username} onChange={handleChange} />
+          <label htmlFor="username">Ім'я:</label>
+          <input id="username" type="text" placeholder="Катерина" name="username" value={formData.username} onChange={handleChange} />
           <br />
           <label htmlFor="email">Email:</label>
-      <input id="email" type="email" placeholder="kat@gmail.com" name="email" value={formData.email} onChange={handleChange} />
-      <br />
+          <input id="email" type="email" placeholder="kat@gmail.com" name="email" value={formData.email} onChange={handleChange} />
+          <br />
           <label htmlFor="password">Пароль:</label>
-      <input id="password" type="password" placeholder="nkeqr8" name="password" value={formData.password} onChange={handleChange} />
-      <br />
-        <label htmlFor="subjects">Оберіть предмети, які викладаєте:</label>
-  <select
-    id="subjects"
-    multiple
-    name="subjects"
-    value={formData.info.subjects}
-    onChange={handleSubjectChange}
-  >
-    {subjects.map(subject => (
-      <option key={subject.id} value={subject.name}>
-        {subject.name}
-      </option>
-    ))}
-  </select>
-         <br />
-         <label htmlFor="education">Освіта:</label>
-         <input
-           id="education"
-          type="text"
-          name="education"
-           value={formData.info.education}
-           onChange={handleInfoChange}
-         />
-         <br />
-        <label htmlFor="experience">Досвід:</label>
-         <input
-           id="experience"
-           type="text"
-           name="experience"
-           value={formData.info.experience}
-           onChange={handleInfoChange}
-         /> років
-        <br />
-        <label>Про себе:</label>
-         <textarea
-           name="text"
-          value={formData.info.text}
-           onChange={handleInfoChange}
-         />
-         <br />
-         <label htmlFor="price">Вартість години заняття:</label>
-         <input
-          id="price"
-           type="text"
-           name="price"
-           value={formData.info.price}
-           onChange={handleInfoChange}
-         /> грн/год
-         <br />
-         <label htmlFor="online">
-          Можу займатись онлайн:
-           <input
-             id="online"
-             type="checkbox"
-            name="online"
-             checked={formData.info.online}
-             onChange={handleCheckboxChange}
-           />
-         </label>
-         <br />
-         <label htmlFor="offline">
-           Можу займатись офлайн:
+          <input id="password" type="password" placeholder="nkeqr8" name="password" value={formData.password} onChange={handleChange} />
+          <br />
+          <label htmlFor="subjects">Оберіть предмети, які викладаєте:</label>
+          <select
+            id="subjects"
+            multiple
+            name="subjects"
+            value={formData.info.subjects}
+            onChange={handleSubjectChange}
+          >
+            {subjects.map(subject => (
+              <option key={subject.id} value={subject.name}>
+                {subject.name}
+              </option>
+            ))}
+          </select>
+          <br />
+          <label htmlFor="education">Освіта:</label>
           <input
-             id="offline"
-            type="checkbox"
-             name="offline"
-             checked={formData.info.offline}
-            onChange={handleCheckboxChange}
-           />
-         </label>
-         
-          <button onClick={handleSubmit} className={style.btn} type="submit">Зареєструватися</button>
+            id="education"
+            type="text"
+            name="education"
+            value={formData.info.education}
+            onChange={handleInfoChange}
+          />
+          <br />
+          <label htmlFor="experience">Досвід:</label>
+          <input
+            id="experience"
+            type="text"
+            name="experience"
+            value={formData.info.experience}
+            onChange={handleInfoChange}
+          /> років
+          <br />
+          <label>Про себе:</label>
+          <textarea
+            name="text"
+            value={formData.info.text}
+            onChange={handleInfoChange}
+          />
+          <br />
+          <label htmlFor="price">Вартість години заняття:</label>
+          <input
+            id="price"
+            type="text"
+            name="price"
+            value={formData.info.price}
+            onChange={handleInfoChange}
+          /> грн/год
+          <br />
+          <label htmlFor="online">
+            Можу займатись онлайн:
+            <input
+              id="online"
+              type="checkbox"
+              name="online"
+              checked={formData.info.online}
+              onChange={handleCheckboxChange}
+            />
+          </label>
+          <br />
+          <label htmlFor="offline">
+            Можу займатись офлайн:
+            <input
+              id="offline"
+              type="checkbox"
+              name="offline"
+              checked={formData.info.offline}
+              onChange={handleCheckboxChange}
+            />
+          </label>
+          <button className={style.btn} type="submit">Зареєструватися</button>
         </form>
       )}
     </div>
+    </Modal>
   );
 };
 
 export default RegistrationComponent;
+
 

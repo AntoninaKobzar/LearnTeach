@@ -6,7 +6,7 @@ import CloseIcon from '../../assets/images/close-1.svg';
 import BurgerMenu from '../burgermenu/BurgerMenu';
 import Modal from '../modal/Modal';
 import RegistrationComponent from '../register/RegistrationComponent';
-import LoginComponent from '../LoginComponent';
+import LoginComponent from '../login/LoginComponent';
 // import TeacherRegistrationForm from '../form/TeacherRegistrationForm';
 // import RegisterStudent from '../registerStudent/RegisterStudent';
 
@@ -14,8 +14,8 @@ import LoginComponent from '../LoginComponent';
 import style from './header.module.css';
 
 const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isProfile,setIsProfile]=useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
