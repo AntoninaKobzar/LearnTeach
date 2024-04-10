@@ -52,7 +52,7 @@ const Header = () => {
             <Modal isOpen={isModalOpen} onClose={toggleModal}>
                 <LoginComponent close={toggleModal}/>
                 </Modal></Link>
-            <Link to="/auth/register" className={style.loginbtn} onClick={toggleModal}>Реєстрація учня
+            <Link to="/auth/users" className={style.loginbtn} onClick={toggleModal}>Реєстрація учня
             <Modal isOpen={isModalOpen} onClose={toggleModal}>
                 <RegistrationComponent close={toggleModal}/>
                 </Modal></Link>

@@ -1,22 +1,38 @@
 
-// import { Link } from 'react-router-dom';
-// import TeacherProfileCard from '../teacherProfile/TeacherProfileCard';
-// import Header from '../header/Header';
-// import Footer from '../footer/Footer';
-// import style from './teacherPage.module.css';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import TeacherProfileCard from '../teacherCard/TeacherCard';
+import Header from '../header/Header';
+import Footer from '../footer/Footer';
+import style from './teacherPage.module.css';
 
-// const TeacherPage = ({id, teacher}) => {
+const TeacherPage = ({id, teacher}) => {
 
-    // return (
+    const navigate = useNavigate();
+      const { isAuthenticated, logout } = useAuth();
+    
+      const handleLogout = () => {
+        logout();
+        navigate('/login'); 
+      };
+    
+      if (!isAuthenticated) {
+        return <div>Please log in</div>;
+      }
+
+    return (
         <>
-            {/* <Header/>
+            <Header/>
             <Link to={`/teachers/${id}`} className={style.register}>
                 Мій профіль
                 {teacher && <TeacherProfileCard id={id} />}
             </Link>
-            <Footer/> */}
+            <button>Редагувати</button>
+            <button onClick={handleLogout}>Logout</button>
+            <Footer/>
         </>
-//     );
-// }
+    );
+}
 
-// export default TeacherPage;
+export default TeacherPage;

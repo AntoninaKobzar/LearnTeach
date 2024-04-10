@@ -17,7 +17,7 @@ const RegistrationComponent = () => {
     email: "",
     password: "",
     role: "",
-    photo: null,
+    photo: "",
     info: {
       subjects: [],
       education: "",
@@ -105,6 +105,7 @@ const RegistrationComponent = () => {
     const selectedFile = e.target.files[0];
     const fileUrl = URL.createObjectURL(selectedFile);
     setFile(fileUrl);
+    // reader.readAsDataURL(file);
 
     setFormData(prevState => ({
       ...prevState,
@@ -125,8 +126,8 @@ const RegistrationComponent = () => {
 
     try {
       const response = await authService.register(formData);
-
-      if (response.status === 200) {
+      console.log(response)
+      if (response.status === 201) {
         // Registration successful
         setRegistrationSuccess(true);
         alert('Teacher registered successfully!');
