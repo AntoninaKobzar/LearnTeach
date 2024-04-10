@@ -1,0 +1,36 @@
+/* .card{
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    align-items: flex-start;
+    background-color: var(--bg-color);
+
+}
+
+.photo{
+    display: block;
+    width: 100px;
+    height: 150px;
+    outline:1px solid red;
+}
+p{
+    font-family: AvantGardeC;
+    font-size: 14px;
+    line-height: 1.4;
+    
+    
+}
+.subject{
+    list-style: none; 
+    padding: 10px 20px; 
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+}
+.education{}
+.experience{}
+.online{}
+.offline{}
+.about{}
+.price{}
+.btn{}
+ */

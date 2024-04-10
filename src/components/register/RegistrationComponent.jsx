@@ -7,11 +7,11 @@ import CloseIcon from '../../assets/images/close-1.svg';
 import style from './register.module.css';
 
 const RegistrationComponent = () => {
-  const [role, setRole] = useState();
-  const [file, setFile] = useState();
+  const [role, setRole] = useState("");
+  const [file, setFile] = useState(null);
   const [subjects, setSubjects] = useState([]);
-  const [registrationError, setRegistrationError] = useState(null);
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  // const [registrationError, setRegistrationError] = useState(null);
+  // const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -30,12 +30,11 @@ const RegistrationComponent = () => {
   });
   
   const [isModalOpen, setIsModalOpen] = useState(true);
-    const toggleModal = () => {
-
+  const navigate = useNavigate();
+  const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
         navigate('/');
     };
-  const navigate = useNavigate();
 
   useEffect(() => {
     subjectsService.getAll()
@@ -96,6 +95,7 @@ const RegistrationComponent = () => {
 
   const handleRoleChange = (event) => {
     const selectedRole = event.target.value;
+    setRole(selectedRole);
     setFormData(prevState => ({
       ...prevState, role: selectedRole
     }));
@@ -103,43 +103,46 @@ const RegistrationComponent = () => {
 
   const handlePhotoChange = (e) => {
     const selectedFile = e.target.files[0];
-    const fileUrl = URL.createObjectURL(selectedFile);
-    setFile(fileUrl);
-    // reader.readAsDataURL(file);
-
-    setFormData(prevState => ({
-      ...prevState,
-      photo: fileUrl
-    }));
+    // const fileUrl = URL.createObjectURL(selectedFile);
+    setFile(selectedFile);
+    // setFormData(prevState => ({
+    //   ...prevState,
+    //   photo: selectedFile
+    // }));
   };
 
-  useEffect(() => {
-    console.log('File State:', file);
-  }, [file]);
+  // useEffect(() => {
+  //   console.log('File State:', file);
+  // }, [file]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.password || !formData.username) {
+    if (!formData.email || !formData.password || !formData.username || !role) {
       alert('Please fill out all required fields.');
+      return;
+    }
+    if (role === "teacher" && !file) {
+      alert('Please upload a photo.');
       return;
     }
 
     try {
       const response = await authService.register(formData);
-      console.log(response)
+      
       if (response.status === 201) {
-        // Registration successful
-        setRegistrationSuccess(true);
-        alert('Teacher registered successfully!');
-        (formData.role === "teacher") ? navigate('/auth/teacher') : navigate('/auth/student');
+        
+        // setRegistrationSuccess(true);
+        alert('Registration successful!');
+        (role === "teacher") ? navigate('/auth/teacher') : navigate('/auth/student');
       } else {
-        // Handle other status codes or errors
+        alert('Registration failed');
         // Example: Registration failed due to validation error
-        setRegistrationError('Registration failed due to validation error');
+        // setRegistrationError('Registration failed due to validation error');
       }
     } catch (error) {
-      setRegistrationError(error.message || 'Registration failed');
+      // setRegistrationError(error.message || 'Registration failed');
       console.error('Registration error:', error);
+      alert('Registration failed');
     }
   };
 
@@ -148,24 +151,25 @@ const RegistrationComponent = () => {
          <img className={style.close} src={CloseIcon} width="30" height="30" alt='close icon' onClick={toggleModal} />
     <div>
       
-      {registrationSuccess && <p>Registration successful!</p>}
-      {registrationError && <p>{registrationError}</p>}
+      {/* {registrationSuccess && <p>Registration successful!</p>}
+      {registrationError && <p>{registrationError}</p>} */}
       <select value={role} onChange={handleRoleChange}>
         <option value="">Select Role</option>
         <option value="student">Student</option>
         <option value="teacher">Teacher</option>
       </select>
-      {formData.role === 'student' && (
+      {role && (
         <form className={style.form} onSubmit={handleSubmit}>
        
           <label htmlFor="photo">Фото:</label>
           <input
             id="photo"
             type="file"
+            accept="image/*"
             name="photo"
             onChange={handlePhotoChange}
           />
-          <img src={file} alt="Uploaded" width={100}/>
+          {/* <img src={file} alt="Uploaded" width={100}/> */}
           <br />
           <label htmlFor="username">Ім'я:</label>
           <input id="username" type="text" placeholder="Катерина" name="username" value={formData.username} onChange={handleChange} />
@@ -175,29 +179,10 @@ const RegistrationComponent = () => {
           <br />
           <label htmlFor="password">Пароль:</label>
           <input id="password" type="password" placeholder="nkeqr8" name="password" value={formData.password} onChange={handleChange} />
-          <button className={style.btn} type="submit">Зареєструватися</button>
-        </form>
-      )}
-      {formData.role === 'teacher' && (
-        <form className={style.form} onSubmit={handleSubmit}>
-          <label htmlFor="photo">Фото:</label>
-          <input
-            id="photo"
-            type="file"
-            name="photo"
-            onChange={handlePhotoChange}
-          />
-          <img src={file} alt="Uploaded"width={100} />
-          <br />
-          <label htmlFor="username">Ім'я:</label>
-          <input id="username" type="text" placeholder="Катерина" name="username" value={formData.username} onChange={handleChange} />
-          <br />
-          <label htmlFor="email">Email:</label>
-          <input id="email" type="email" placeholder="kat@gmail.com" name="email" value={formData.email} onChange={handleChange} />
-          <br />
-          <label htmlFor="password">Пароль:</label>
-          <input id="password" type="password" placeholder="nkeqr8" name="password" value={formData.password} onChange={handleChange} />
-          <br />
+          <br/>
+     
+      {role === 'teacher' && (
+        <>
           <label htmlFor="subjects">Оберіть предмети, які викладаєте:</label>
           <select
             id="subjects"
@@ -268,6 +253,8 @@ const RegistrationComponent = () => {
               onChange={handleCheckboxChange}
             />
           </label>
+          </>
+      )}
           <button className={style.btn} type="submit">Зареєструватися</button>
         </form>
       )}

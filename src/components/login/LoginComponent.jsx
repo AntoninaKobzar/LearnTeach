@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '../modal/Modal';
 import CloseIcon from '../../assets/images/close-1.svg';
 import style from './login.module.css';
-import { useAuth } from '../../hooks/AuthContext'; 
+import { useAuth } from '../../hooks/AuthContext';
 
 const LoginComponent = () => {
-  const { isAuthenticated, login } = useAuth();
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const { login } = useAuth();
+  const [formData, setFormData] = useState({ email: "", password: "", role: "" }); // Add 'role' property
   const [isModalOpen, setIsModalOpen] = useState(true);
   const navigate = useNavigate();
 
@@ -28,14 +28,13 @@ const LoginComponent = () => {
     e.preventDefault();
 
     try {
-      // Perform login action using formData
       console.log("Logging in with:", formData);
       // Example: const response = await authService.login(formData);
       const response = { status: 201 }; // Mock response for testing
 
       if (response.status === 201) {
         // Redirect user based on role
-        const destination = (formData.role === "teacher") ? '/auth/teacher' : '/auth/student';
+        const destination = (formData.role === "teacher") ? '/auth/login/teacher' : '/auth/login/student';
         navigate(destination);
         alert('Logged in successfully!');
         login();
@@ -59,6 +58,14 @@ const LoginComponent = () => {
         <br />
         <label htmlFor="password">Password:</label>
         <input id="password" type="password" placeholder="nkeqr8" name="password" value={formData.password} onChange={handleChange} />
+        <br />
+        {/* Add select input for role */}
+        <label htmlFor="role">Role:</label>
+        <select id="role" name="role" value={formData.role} onChange={handleChange}>
+          <option value="teacher">Teacher</option>
+          <option value="student">Student</option>
+        </select>
+        <br />
         <button className={style.btn} type="submit">Login</button>
       </form>
     </Modal>
@@ -66,3 +73,4 @@ const LoginComponent = () => {
 };
 
 export default LoginComponent;
+

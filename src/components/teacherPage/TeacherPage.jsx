@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import TeacherProfileCard from '../teacherCard/TeacherCard';
+import TeacherProfileCard from '../teacherProfile/TeacherProfile';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import style from './teacherPage.module.css';

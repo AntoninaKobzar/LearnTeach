@@ -4,9 +4,10 @@ import  AuthProvider  from './hooks/AuthContext';
 import NotFound from './components/NotFound';
 import RegistrationComponent from './components/register/RegistrationComponent';
 import LoginComponent from './components/login/LoginComponent';
-import StudentPage from './components/studentPage/StudentPage';
-import TeacherPage from './components/teacherPage/TeacherPage';
+import StudentProfile from './components/studentProfile/StudentProfile';
+import TeacherProfile from './components/teacherProfile/TeacherProfile';
 import "./App.css";
+
 
 
 function App() {
@@ -18,8 +19,8 @@ function App() {
       <Route path="/" element={<MainPage />} />
           <Route path="/auth/login" element={<LoginComponent />} />
           <Route path="/auth/register" element={<RegistrationComponent />} />
-          <Route path="/auth/student" element={<StudentPage />} />
-          <Route path="/auth/teacher" element={<TeacherPage />} />
+          <Route path="/auth/login/student" element={<StudentProfile />} />
+          <Route path="/auth/login/teacher" element={<TeacherProfile />} />
           <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
