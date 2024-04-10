@@ -5,29 +5,28 @@ const baseUrl = '/api/auth';
 
 const register = async (formData) => {
   const formDataObj = new FormData();
-  // Convert formData object to FormData
-  Object.keys(formData).forEach((key) => {
-    if (key === 'photo') {
-      if (formData[key] instanceof File) {
-        formDataObj.append(key, formData[key], formData[key].name);
-      }
-    } else {
-      formDataObj.append(key, formData[key]);
-    }
-  });
+  formDataObj.append('username', formData.username);
+  formDataObj.append('email', formData.email);
+  formDataObj.append('password', formData.password);
+  formDataObj.append('role', formData.role);
+  formDataObj.append('photo', formData.photo); // Append photo directly
+  formDataObj.append('info', JSON.stringify(formData.info));
 
   try {
-    const response = await axios.post(`${baseUrl}/register/upload-photo`, formDataObj, {
+    const response = await axios.post(`${baseUrl}/register`, formDataObj, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
+
     console.log('Photo uploaded successfully', response.data.photoUrl);
     // return response.data;
   } catch (error) {
     console.error('Error uploading photo:', error);
+    throw error;
   }
 };
+
 
 const getById = async (userId) => {
   try {
@@ -42,8 +41,8 @@ const getById = async (userId) => {
 
 
 
-const login = (username, password) => {
-  return axios.post(`${baseUrl}/login`, { username, password })
+const login = (username, password, role) => { 
+  return axios.post(`${baseUrl}/login`, { username, password, role }) 
     .then(response => {
       return response.data;
     })

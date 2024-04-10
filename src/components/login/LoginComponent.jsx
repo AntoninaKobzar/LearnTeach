@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import authService from '../../services/authService';
 import Modal from '../modal/Modal';
 import CloseIcon from '../../assets/images/close-1.svg';
 import style from './login.module.css';
@@ -25,14 +26,54 @@ const LoginComponent = () => {
   };
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+  //    e.preventDefault();
+  // if (!formData.email || !formData.password || !role) {
+  //   alert('Please fill out all required fields.');
+  //   return;
+  // }
+  // if (role === "teacher" && !selectedFile) {
+  //   alert('Please upload a photo.');
+  //   return;
+  // }
 
+//   try {
+//     // Directly pass the formData object to authService.register
+//     const response = await authService.register({
+//       email: formData.email,
+//       password: formData.password,
+//       role: formData.role,
+//       photo: selectedFile, // Assuming selectedFile is the uploaded photo
+//       info: formData.info
+//     });
+    
+//     if (response && response.status === 200) {
+//       alert('Registration successful!');
+//       (role === "teacher") ? navigate('/auth/teacher') : navigate('/auth/student');
+//     } else {
+//       alert('Registration failed');
+//     }
+//   } catch (error) {
+//     console.error('Registration error:', error);
+//     alert('Registration failed');
+//   }
+// };
+    e.preventDefault();
+    if (!formData.email || !formData.password || !formData.role) {
+      alert('Please fill out all required fields.');
+      return;
+    }
     try {
       console.log("Logging in with:", formData);
-      // Example: const response = await authService.login(formData);
-      const response = { status: 201 }; // Mock response for testing
+      const response = await authService.login(formData.email, formData.password, formData.role);
+      // const response = { status: 201 }; // Mock response for testing
 
-      if (response.status === 201) {
+
+      
+      if (response.data && response.data.token) {
+        // Store the token in local storage
+        localStorage.setItem('token', response.data.token);
+
+      // if (response.status === 200) {
         // Redirect user based on role
         const destination = (formData.role === "teacher") ? '/auth/login/teacher' : '/auth/login/student';
         navigate(destination);
