@@ -35,7 +35,7 @@ const LoginComponent = () => {
 
       if (response.status === 201) {
         // Redirect user based on role
-        const destination = (formData.role === "teacher") ? '/teacher' : '/student';
+        const destination = (formData.role === "teacher") ? '/auth/teacher' : '/auth/student';
         navigate(destination);
         alert('Logged in successfully!');
         login();

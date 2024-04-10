@@ -131,7 +131,7 @@ const RegistrationComponent = () => {
         // Registration successful
         setRegistrationSuccess(true);
         alert('Teacher registered successfully!');
-        (formData.role === "teacher") ? navigate('/teacher') : navigate('/student');
+        (formData.role === "teacher") ? navigate('/auth/teacher') : navigate('/auth/student');
       } else {
         // Handle other status codes or errors
         // Example: Registration failed due to validation error

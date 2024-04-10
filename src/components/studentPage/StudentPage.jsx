@@ -18,7 +18,7 @@ const StudentPage = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate('/auth/login');
   };
 
   if (!isAuthenticated) {
@@ -72,7 +72,7 @@ const handleSubjectClick = async (subjectId) => {
                     <ul>
                         {teachersWithSubject.map(teacher => (
                             <li key={teacher.id}>
-                                <Link to={`/users/${teacher.id}`}>{teacher.name}</Link>
+                                <Link to={`/auth/${teacher.id}`}>{teacher.name}</Link>
                             </li>
                         ))}
                     </ul>

@@ -14,7 +14,7 @@ const TeacherPage = ({id, teacher}) => {
     
       const handleLogout = () => {
         logout();
-        navigate('/login'); 
+        navigate('/auth/login'); 
       };
     
       if (!isAuthenticated) {
@@ -24,7 +24,7 @@ const TeacherPage = ({id, teacher}) => {
     return (
         <>
             <Header/>
-            <Link to={`/teachers/${id}`} className={style.register}>
+            <Link to={`/auth/teacher/${id}`} className={style.register}>
                 Мій профіль
                 {teacher && <TeacherProfileCard id={id} />}
             </Link>

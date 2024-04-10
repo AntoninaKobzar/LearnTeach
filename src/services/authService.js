@@ -16,7 +16,7 @@ const register = async (formData) => {
       }
     });
 
-    const response = await axios.post(`${baseUrl}/users`, formData, {
+    const response = await axios.post(`${baseUrl}/register`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
@@ -52,7 +52,7 @@ const login = (username, password) => {
 
 const getBySubject = async (subjectName) => {
   try {
-    const response = await axios.get(`${baseUrl}/users?subject=${subjectName}`);
+    const response = await axios.get(`${baseUrl}?subjects=${subjectName}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching teachers by subject:', error);
@@ -61,7 +61,7 @@ const getBySubject = async (subjectName) => {
 };
 const getBySubjectAndRole = async (subjectName) => {
   try {
-    const response = await axios.get(`${baseUrl}/users`, {
+    const response = await axios.get(`${baseUrl}`, {
       params: {
         subject: subjectName
       }
@@ -74,6 +74,8 @@ const getBySubjectAndRole = async (subjectName) => {
 };
 
 export default {
-  register,
-login, getBySubject,getBySubjectAndRole
+register,
+login,
+getBySubject,
+getBySubjectAndRole
 };
