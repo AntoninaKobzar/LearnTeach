@@ -14,17 +14,17 @@ const RegistrationComponent = () => {
   // const [registrationError, setRegistrationError] = useState(null);
   // const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    role: "",
-    photo: "",
+    username: '',
+    email: '',
+    password: '',
+    role: '',
+    photo: null, // Store the file object
     info: {
       subjects: [],
-      education: "",
-      experience: "",
-      text: "",
-      price: "",
+      education: '',
+      experience: '',
+      text: '',
+      price: '',
       online: false,
       offline: false
     }
@@ -104,45 +104,73 @@ const RegistrationComponent = () => {
 
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
-    setSelectedFile(file);
-
-    // Create a URL for file preview
-    setFilePreview(URL.createObjectURL(file));
+    setFormData(prevState => ({
+      ...prevState,
+      photo: file // Store the file object in the formData
+    }));
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.password || !formData.username || !formData.role) {
-      alert('Please fill out all required fields.');
-      return;
-    }
-    if (role === "teacher" && !selectedFile) {
-      alert('Please upload a photo.');
-      return;
-    }
-  
     try {
-      // Directly pass the formData object to authService.register
-      const response = await authService.register({
-        username:formData.username,
-        email: formData.email,
-        password: formData.password,
-        role: formData.role,
-        photo: selectedFile, // Assuming selectedFile is the uploaded photo
-        info: formData.info
+      await authService.register(formData);
+      alert('User registered successfully!');
+      // Reset the form after successful registration
+      setFormData({
+        username: '',
+        email: '',
+        password: '',
+        role: '',
+        photo: null,
+        info: {
+          subjects: [],
+          education: '',
+          experience: '',
+          text: '',
+          price: '',
+          online: false,
+          offline: false
+        }
       });
-      
-      if (response && response.status === 201) {
-        alert('Registration successful!');
-        (role === "teacher") ? navigate('/auth/teacher') : navigate('/auth/student');
-      } else {
-        alert('Registration failed');
-      }
     } catch (error) {
       console.error('Registration error:', error);
-      alert('Registration failed');
+      alert('Registration failed. Please try again.');
     }
   };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (!formData.email || !formData.password || !formData.username || !formData.role) {
+  //     alert('Please fill out all required fields.');
+  //     return;
+  //   }
+  //   if (role === "teacher" && !selectedFile) {
+  //     alert('Please upload a photo.');
+  //     return;
+  //   }
+  
+  //   try {
+  //     // Directly pass the formData object to authService.register
+  //     const response = await authService.register({
+  //       username:formData.username,
+  //       email: formData.email,
+  //       password: formData.password,
+  //       role: formData.role,
+  //       photo: selectedFile, 
+  //       info: formData.info
+  //     });
+      
+  //     if (response && response.status === 201) {
+  //       alert('Registration successful!');
+  //       (role === "teacher") ? navigate('/auth/teacher') : navigate('/auth/student');
+  //     } else {
+  //       alert('Registration failed');
+  //     }
+  //   } catch (error) {
+  //     console.error('Registration error:', error);
+  //     alert('Registration failed');
+  //   }
+  // };
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();

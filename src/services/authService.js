@@ -4,28 +4,44 @@ import axios from 'axios';
 const baseUrl = '/api/auth'; 
 
 const register = async (formData) => {
-  const formDataObj = new FormData();
-  formDataObj.append('username', formData.username);
-  formDataObj.append('email', formData.email);
-  formDataObj.append('password', formData.password);
-  formDataObj.append('role', formData.role);
-  formDataObj.append('photo', formData.photo); // Append photo directly
-  formDataObj.append('info', JSON.stringify(formData.info));
-
   try {
-    const response = await axios.post(`${baseUrl}/register`, formDataObj, {
+    const response = await axios.post(`${baseUrl}/register`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
 
-    console.log('Photo uploaded successfully', response.data.photoUrl);
+    console.log('User registered successfully:', response.data);
     // return response.data;
   } catch (error) {
-    console.error('Error uploading photo:', error);
+    console.error('Error registering user:', error);
     throw error;
   }
 };
+
+// const register = async (formData) => {
+//   const formDataObj = new FormData();
+//   formDataObj.append('username', formData.username);
+//   formDataObj.append('email', formData.email);
+//   formDataObj.append('password', formData.password);
+//   formDataObj.append('role', formData.role);
+//   formDataObj.append('photo', formData.photo); // Append photo directly
+//   formDataObj.append('info', JSON.stringify(formData.info));
+
+//   try {
+//     const response = await axios.post(`${baseUrl}/register`, formDataObj, {
+//       headers: {
+//         'Content-Type': 'multipart/form-data',
+//       },
+//     });
+
+//     console.log('Photo uploaded successfully', response.data.photoUrl);
+//     // return response.data;
+//   } catch (error) {
+//     console.error('Error uploading photo:', error);
+//     throw error;
+//   }
+// };
 
 
 const getById = async (userId) => {
@@ -41,8 +57,8 @@ const getById = async (userId) => {
 
 
 
-const login = (username, password, role) => { 
-  return axios.post(`${baseUrl}/login`, { username, password, role }) 
+const login = (email, password, role) => { 
+  return axios.post(`${baseUrl}/login`, { email, password, role }) 
     .then(response => {
       return response.data;
     })
