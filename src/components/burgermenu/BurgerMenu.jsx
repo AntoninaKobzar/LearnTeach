@@ -8,8 +8,8 @@ const BurgerMenu = ({ close }) => {
         <div className={style.menu}>
             <img className={style.close} src={CloseIcon} width="30" height="30" alt='close icon'onClick={close}/>
             <Link to="/" className={style.burgerbtn}>Головна</Link>
-            <Link to="/auth/student" className={style.burgerbtn}>Учню</Link>
-            <Link to="/auth/teacher" className={style.burgerbtn}>Вчителю</Link>
+            <Link to="/users/student" className={style.burgerbtn}>Учню</Link>
+            <Link to="/users/teacher" className={style.burgerbtn}>Вчителю</Link>
         </div>
     );
 };

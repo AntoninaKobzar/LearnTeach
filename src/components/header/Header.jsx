@@ -7,10 +7,6 @@ import BurgerMenu from '../burgermenu/BurgerMenu';
 import Modal from '../modal/Modal';
 import RegistrationComponent from '../register/RegistrationComponent';
 import LoginComponent from '../login/LoginComponent';
-// import TeacherRegistrationForm from '../form/TeacherRegistrationForm';
-// import RegisterStudent from '../registerStudent/RegisterStudent';
-
-// import Login from '../login/Login';
 import style from './header.module.css';
 
 const Header = () => {
@@ -38,6 +34,13 @@ const Header = () => {
                 <BurgerMenu close={toggleMenu}/>
             </Modal>
             <p className={style.logo}>ВчусяВчу</p>
+            <div className={style.menubtns}>
+            <Link to="/" className={style.mainbtn}>Головна</Link>
+            <Link to="/users/student" className={style.mainbtn}>Учню</Link>
+            <Link to="/users/teacher" className={style.mainbtn}>Вчителю</Link>
+            <Link to="/users/login"className={style.mainbtn}>Вхід</Link>
+            <Link to="/users/register" className={style.mainbtn} onClick={toggleModal}>Реєстрація</Link>
+            </div>
             {(!isProfile)?
             <button className={style.userbtn} onClick={toggleProfile}>
                 <img className={style.usericon} src={UserIcon} width="30" height="30" alt='user icon'/>
@@ -48,18 +51,14 @@ const Header = () => {
                 <img className={style.closeicon} src={CloseIcon} width="30" height="30" alt='close icon'/>
             </button>
             <div className={style.loginbtns}>
-            <Link to="/auth/login"className={style.loginbtn}>Вхід
+            <Link to="/users/login"className={style.loginbtn}>Вхід
             <Modal isOpen={isModalOpen} onClose={toggleModal}>
                 <LoginComponent close={toggleModal}/>
                 </Modal></Link>
-            <Link to="/auth/register" className={style.loginbtn} onClick={toggleModal}>Реєстрація учня
+            <Link to="/users/register" className={style.loginbtn} onClick={toggleModal}>Реєстрація
             <Modal isOpen={isModalOpen} onClose={toggleModal}>
                 <RegistrationComponent close={toggleModal}/>
                 </Modal></Link>
-            {/* <Link to="/teachers"className={style.loginbtn} onClick={toggleModal}>Реєстрація вчителя
-                <Modal isOpen={isModalOpen} onClose={toggleModal}>
-                <TeacherRegistrationForm close={toggleModal}/>
-                </Modal></Link> */}
             </div>
             </div>}
            

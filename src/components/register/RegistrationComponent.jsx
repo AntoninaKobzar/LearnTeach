@@ -8,7 +8,6 @@ import style from './register.module.css';
 
 const RegistrationComponent = () => {
   const [role, setRole] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
   const [filePreview, setFilePreview] = useState(null); // State for file preview
   const [subjects, setSubjects] = useState([]);
   // const [registrationError, setRegistrationError] = useState(null);
@@ -19,7 +18,6 @@ const RegistrationComponent = () => {
     password: '',
     role: '',
     photo: null, // Store the file object
-    info: {
       subjects: [],
       education: '',
       experience: '',
@@ -27,7 +25,6 @@ const RegistrationComponent = () => {
       price: '',
       online: false,
       offline: false
-    }
   });
   
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -39,8 +36,8 @@ const RegistrationComponent = () => {
 
   useEffect(() => {
     subjectsService.getAll()
-      .then(allSubjects => {
-        setSubjects(allSubjects);
+      .then(subjects => {
+        setSubjects(subjects);
       })
       .catch(error => {
         console.error('Error fetching subjects:', error);
@@ -55,45 +52,39 @@ const RegistrationComponent = () => {
     }));
   };
 
-  const handleInfoChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      info: {
-        ...prevState.info,
-        [name]: value
-      }
-    }));
-  };
+  // const handleInfoChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prevState => ({
+  //     ...prevState,
+  //     info: {
+  //       ...prevState.info,
+  //       [name]: value
+  //     }
+  //   }));
+  // };
 
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     setFormData(prevState => ({
       ...prevState,
-      info: {
-        ...prevState.info,
         [name]: checked
-      }
+      
     }));
   };
 
-  const handleSubjectChange = (event) => {
-    const { options } = event.target;
-    const selectedSubjects = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedSubjects.push(options[i].value);
-      }
-    }
-    setFormData(prevState => ({
-      ...prevState,
-      info: {
-        ...prevState.info,
-        subjects: selectedSubjects
-      }
-    }));
-  };
-
+  // const handleSubjectChange = (event) => {
+  //   const { options } = event.target;
+  //   const selectedSubjects = [];
+  //   for (let i = 0; i < options.length; i++) {
+  //     if (options[i].selected) {
+  //       selectedSubjects.push(options[i].value);
+  //     }
+  //   }
+  //   setFormData(prevState => ({
+  //     ...prevState,
+  //     subjects: selectedSubjects
+  //   }));
+  // };
   const handleRoleChange = (event) => {
     const selectedRole = event.target.value;
     setRole(selectedRole);
@@ -106,107 +97,85 @@ const RegistrationComponent = () => {
     const file = e.target.files[0];
     setFormData(prevState => ({
       ...prevState,
-      photo: file // Store the file object in the formData
+      photo: file 
     }));
   };
 
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await authService.register(formData);
+  //     alert('User registered successfully!');
+  //     // Reset the form after successful registration
+  //     setFormData({
+  //       username: '',
+  //       email: '',
+  //       password: '',
+  //       role: '',
+  //       photo: null,
+  //         subjects: [],
+  //         education: '',
+  //         experience: '',
+  //         text: '',
+  //         price: '',
+  //         online: false,
+  //         offline: false
+        
+  //     });
+  //   } catch (error) {
+  //     console.error('Registration error:', error);
+  //     alert('Registration failed. Please try again.');
+  //   }
+  // };
+
+  const handleSubjectChange = (event) => {
+    const { options } = event.target;
+    const selectedSubjects = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedSubjects.push(options[i].value);
+      }
+    }
+    setFormData(prevState => ({
+      ...prevState,
+      subjects: selectedSubjects
+    }));
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await authService.register(formData);
+      await authService.register(formData); // Pass formData directly to register function
       alert('User registered successfully!');
-      // Reset the form after successful registration
       setFormData({
         username: '',
         email: '',
         password: '',
         role: '',
         photo: null,
-        info: {
-          subjects: [],
-          education: '',
-          experience: '',
-          text: '',
-          price: '',
-          online: false,
-          offline: false
-        }
+        education: '',
+        experience: '',
+        text: '',
+        price: '',
+        online: false,
+        offline: false
       });
+      document.getElementById('photo').value = null; // Clear file input value
     } catch (error) {
       console.error('Registration error:', error);
       alert('Registration failed. Please try again.');
     }
   };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!formData.email || !formData.password || !formData.username || !formData.role) {
-  //     alert('Please fill out all required fields.');
-  //     return;
-  //   }
-  //   if (role === "teacher" && !selectedFile) {
-  //     alert('Please upload a photo.');
-  //     return;
-  //   }
-  
-  //   try {
-  //     // Directly pass the formData object to authService.register
-  //     const response = await authService.register({
-  //       username:formData.username,
-  //       email: formData.email,
-  //       password: formData.password,
-  //       role: formData.role,
-  //       photo: selectedFile, 
-  //       info: formData.info
-  //     });
-      
-  //     if (response && response.status === 201) {
-  //       alert('Registration successful!');
-  //       (role === "teacher") ? navigate('/auth/teacher') : navigate('/auth/student');
-  //     } else {
-  //       alert('Registration failed');
-  //     }
-  //   } catch (error) {
-  //     console.error('Registration error:', error);
-  //     alert('Registration failed');
-  //   }
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!formData.email || !formData.password || !formData.username || !role) {
-  //     alert('Please fill out all required fields.');
-  //     return;
-  //   }
-  //   if (role === "teacher" && !selectedFile) {
-  //     alert('Please upload a photo.');
-  //     return;
-  //   }
-
-  //   try {
-  //     const formDataWithPhoto = { ...formData, photo: selectedFile };
-  //     const response = await authService.register(formDataWithPhoto);
-      
-  //     if (response && response.status === 200) {
-  //       alert('Registration successful!');
-  //       (role === "teacher") ? navigate('/auth/teacher') : navigate('/auth/student');
-  //     } else {
-  //       alert('Registration failed');
-  //     }
-  //   } catch (error) {
-  //     console.error('Registration error:', error);
-  //     alert('Registration failed');
-  //   }
-  // };
 
   return (
     <Modal isOpen={isModalOpen} onClose={toggleModal}>
       <img className={style.close} src={CloseIcon} width="30" height="30" alt='close icon' onClick={toggleModal} />
       <div>
         <select value={role} onChange={handleRoleChange}>
-          <option value="">Select Role</option>
-          <option value="student">Student</option>
-          <option value="teacher">Teacher</option>
+          <option value="">Оберіть</option>
+          <option value="student">Учень</option>
+          <option value="teacher">Вчитель</option>
         </select>
         {role && (
           <form className={style.form} onSubmit={handleSubmit}>
@@ -218,9 +187,9 @@ const RegistrationComponent = () => {
               name="photo"
               onChange={handlePhotoChange}
             />
-            {filePreview && (
+            {/* {filePreview && (
               <img src={filePreview} alt="Preview" width={100} />
-            )}
+            )} */}
             <br />
             <label htmlFor="username">Ім'я:</label>
             <input id="username" type="text" placeholder="Катерина" name="username" value={formData.username} onChange={handleChange} />
@@ -238,14 +207,14 @@ const RegistrationComponent = () => {
                   id="subjects"
                   multiple
                   name="subjects"
-                  value={formData.info.subjects}
+                  value={formData.subjects}
                   onChange={handleSubjectChange}
                 >
-                  {subjects.map(subject => (
-                    <option key={subject.id} value={subject.name}>
-                      {subject.name}
-                    </option>
-                  ))}
+                 {subjects.map((subject, index) => (
+  <option key={index} value={subject.name}>
+    {subject.name}
+  </option>
+))}
                 </select>
                 <br />
                 <label htmlFor="education">Освіта:</label>
@@ -253,8 +222,8 @@ const RegistrationComponent = () => {
                   id="education"
                   type="text"
                   name="education"
-                  value={formData.info.education}
-                  onChange={handleInfoChange}
+                  value={formData.education}
+                  onChange={handleChange}
                 />
                 <br />
                 <label htmlFor="experience">Досвід:</label>
@@ -262,15 +231,15 @@ const RegistrationComponent = () => {
                   id="experience"
                   type="text"
                   name="experience"
-                  value={formData.info.experience}
-                  onChange={handleInfoChange}
+                  value={formData.experience}
+                  onChange={handleChange}
                 /> років
                 <br />
                 <label>Про себе:</label>
                 <textarea
                   name="text"
-                  value={formData.info.text}
-                  onChange={handleInfoChange}
+                  value={formData.text}
+                  onChange={handleChange}
                 />
                 <br />
                 <label htmlFor="price">Вартість години заняття:</label>
@@ -278,8 +247,8 @@ const RegistrationComponent = () => {
                   id="price"
                   type="text"
                   name="price"
-                  value={formData.info.price}
-                  onChange={handleInfoChange}
+                  value={formData.price}
+                  onChange={handleChange}
                 /> грн/год
                 <br />
                 <label htmlFor="online">
@@ -288,7 +257,7 @@ const RegistrationComponent = () => {
                     id="online"
                     type="checkbox"
                     name="online"
-                    checked={formData.info.online}
+                    checked={formData.online}
                     onChange={handleCheckboxChange}
                   />
                 </label>
@@ -299,7 +268,7 @@ const RegistrationComponent = () => {
                     id="offline"
                     type="checkbox"
                     name="offline"
-                    checked={formData.info.offline}
+                    checked={formData.offline}
                     onChange={handleCheckboxChange}
                   />
                 </label>

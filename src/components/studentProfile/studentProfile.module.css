@@ -65,3 +65,17 @@ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-color: var(--secondary-color);
     color: var(--bg-color);  
 }
+
+.teacherList{
+    display: flex;
+    flex-direction: column;
+}
+.teacherCard{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--accent-color);
+}
+.teacherPfoto{
+width: 100px;
+outline: 1px solid blue;
+}

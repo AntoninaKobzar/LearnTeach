@@ -17,7 +17,7 @@ const StudentProfile = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/auth/login');
+    navigate('/users/login');
   };
 
   if (!isAuthenticated) {
@@ -49,8 +49,8 @@ const StudentProfile = () => {
       <Header />
       <div className={style.wrapper}>
         <div className={style.card}>
-          {user.photo && <img src={user.photo} className={style.photo} width='150px' alt='student-photo' />}
-          <p className={style.name}>{user.name}</p>
+          {user && user.photo && <img src={user.photo} className={style.photo} width='150px' alt='student-photo' />}
+          <p className={style.name}>{user && user.name}</p>
         </div>
       </div>
       <div>
@@ -71,17 +71,32 @@ const StudentProfile = () => {
           )}
         </ul>
         {selectedSubject && (
-          <div>
-            <h2>Teachers who teach {selectedSubject.name}</h2>
-            <ul>
-              {teachersWithSubject.map(teacher => (
-                <li key={teacher.id}>
-                  <Link to={`/auth/${teacher.id}`}>{teacher.name}</Link>
-                </li>
-              ))}
+  <div>
+    <h2> {selectedSubject.name}</h2>
+    <div className={style.teacherList}>
+      {teachersWithSubject.map(teacher => (
+        <div className={style.teacherCard} key={teacher.email}>
+          {teacher.photo && <img className={style.teacherPfoto} src={teacher.photo} alt='teacher-photo' />}
+          <p>{teacher.name}</p>
+          <p className={style.subjects}></p>
+                <ul>
+                {teacher.subjects.map(subject=>(
+                    <li className={style.subject} key={subject.id}>{subject}</li>
+                ))} 
             </ul>
-          </div>
-        )}
+            <p className={style.education}>Освіта: {teacher.education}</p>
+            <p className={style.experience}>Досвід: {teacher.experience ? teacher.experience + ' years' : 'Not specified'}</p>
+            <p className={style.online}>Онлайн: {teacher.online ? 'Так' : 'Ні'}</p>
+            <p className={style.offline}>Офлайн: {teacher.offline ? 'Так' : 'Ні'}</p>
+            <p className={style.about}>{teacher.text}</p>
+            <p className={style.price}>{teacher.price} грн/год</p>
+            <button className={style.btn}>Зв'язатись з вчителем</button>
+          {/* Render other relevant teacher details here */}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
         <button className={style.btn}>Редагувати профіль</button>
         <button className={style.btn} onClick={handleLogout}>Logout</button>
       </div>

@@ -7,8 +7,8 @@ import style from './login.module.css';
 import { useAuth } from '../../hooks/AuthContext';
 
 const LoginComponent = () => {
-  const { login } = useAuth();
-  const [formData, setFormData] = useState({ email: "", password: "", role: "" }); // Add 'role' property
+  const { login, isAuthenticated } = useAuth();
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [isModalOpen, setIsModalOpen] = useState(true);
   const navigate = useNavigate();
 
@@ -26,67 +26,35 @@ const LoginComponent = () => {
   };
 
   const handleLogin = async (e) => {
-  //    e.preventDefault();
-  // if (!formData.email || !formData.password || !role) {
-  //   alert('Please fill out all required fields.');
-  //   return;
-  // }
-  // if (role === "teacher" && !selectedFile) {
-  //   alert('Please upload a photo.');
-  //   return;
-  // }
-
-//   try {
-//     // Directly pass the formData object to authService.register
-//     const response = await authService.register({
-//       email: formData.email,
-//       password: formData.password,
-//       role: formData.role,
-//       photo: selectedFile, // Assuming selectedFile is the uploaded photo
-//       info: formData.info
-//     });
-    
-//     if (response && response.status === 200) {
-//       alert('Registration successful!');
-//       (role === "teacher") ? navigate('/auth/teacher') : navigate('/auth/student');
-//     } else {
-//       alert('Registration failed');
-//     }
-//   } catch (error) {
-//     console.error('Registration error:', error);
-//     alert('Registration failed');
-//   }
-// };
     e.preventDefault();
-    if (!formData.email || !formData.password || !formData.role) {
+    if (!formData.email || !formData.password) {
       alert('Please fill out all required fields.');
       return;
     }
+
     try {
-      console.log("Logging in with:", formData);
-      const response = await authService.login(formData.email, formData.password, formData.role);
-      // const response = { status: 201 }; // Mock response for testing
+      const { token, user } = await authService.login(formData.email, formData.password);
 
-
-      
-      if (response.data && response.data.token) {
-        // Store the token in local storage
-        localStorage.setItem('token', response.data.token);
-
-      // if (response.status === 200) {
-        // Redirect user based on role
-        const destination = (formData.role === "teacher") ? '/auth/login/teacher' : '/auth/login/student';
+      if (token) {
+        localStorage.setItem('token', token);
+        // Store user data in context
+        login(user); // Assuming this function sets authentication state
+        const destination = (user.role === "teacher") ? '/users/teacher' : '/users/student';
         navigate(destination);
         alert('Logged in successfully!');
-        login();
-      } else {
-        // Handle login failure
-        alert('Login failed');
       }
+       
+      // } else {
+      //   console.error('Unexpected response format:', response);
+      //   alert('Login failed. Please try again.');
+      // }
     } catch (error) {
       console.error('Login error:', error);
-      // Handle login error
-      alert('Login failed');
+      if (error.message === 'Invalid email or password. Please try again.') {
+        alert('Invalid email or password. Please check your credentials.');
+      } else {
+        alert('Login failed. Please try again later.');
+      }
     }
   };
 
@@ -99,13 +67,6 @@ const LoginComponent = () => {
         <br />
         <label htmlFor="password">Password:</label>
         <input id="password" type="password" placeholder="nkeqr8" name="password" value={formData.password} onChange={handleChange} />
-        <br />
-        {/* Add select input for role */}
-        <label htmlFor="role">Role:</label>
-        <select id="role" name="role" value={formData.role} onChange={handleChange}>
-          <option value="teacher">Teacher</option>
-          <option value="student">Student</option>
-        </select>
         <br />
         <button className={style.btn} type="submit">Login</button>
       </form>

@@ -52,3 +52,9 @@
     cursor: pointer;
     color: var(--accent-color);
 }
+@media (min-width: 480px) and (max-width: 720px) {
+    
+  }
+  @media (min-width: 721px) {
+    
+  }
