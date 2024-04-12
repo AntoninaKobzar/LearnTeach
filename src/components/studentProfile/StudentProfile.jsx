@@ -12,7 +12,7 @@ const StudentProfile = () => {
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [teachersWithSubject, setTeachersWithSubject] = useState([]);
   const navigate = useNavigate();
-  const { isAuthenticated, logout, user } = useAuth();
+  const {logout, user } = useAuth();
  
 
   const handleLogout = () => {
@@ -20,9 +20,12 @@ const StudentProfile = () => {
     navigate('/users/login');
   };
 
-  if (!isAuthenticated) {
-    return <div>Please log in</div>;
-  }
+  useEffect(() => {
+    if (!user || user.role !== 'student') {
+      alert('Please log in as a student.');
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     subjectService.getAll()
@@ -31,7 +34,7 @@ const StudentProfile = () => {
       }).catch((error) => {
         console.error('Error fetching subjects:', error);
       });
-  }, []);
+  }, [user]);
 
   const handleSubjectClick = async (subjectId) => {
     try {
@@ -53,7 +56,7 @@ const StudentProfile = () => {
           <p className={style.name}>{user && user.name}</p>
         </div>
       </div>
-      <div>
+      <div className={style.subjects}>
         <h2 className={style.title}>Популярні предмети</h2>
         <ul className={style['subject-list']}>
           {Array.isArray(subjects) && subjects.length > 0 ? (
@@ -91,7 +94,6 @@ const StudentProfile = () => {
             <p className={style.about}>{teacher.text}</p>
             <p className={style.price}>{teacher.price} грн/год</p>
             <button className={style.btn}>Зв'язатись з вчителем</button>
-          {/* Render other relevant teacher details here */}
         </div>
       ))}
     </div>

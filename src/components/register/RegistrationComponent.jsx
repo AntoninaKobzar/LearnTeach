@@ -172,10 +172,10 @@ const RegistrationComponent = () => {
   };
 
   return (
-    <Modal isOpen={isModalOpen} onClose={toggleModal}>
+    <Modal className={style.modal} isOpen={isModalOpen} onClose={toggleModal}>
       <img className={style.close} src={CloseIcon} width="30" height="30" alt='close icon' onClick={toggleModal} />
       <div>
-        <select value={role} onChange={handleRoleChange}>
+        <select className={style.choose} value={role} onChange={handleRoleChange}>
           <option value="">Оберіть</option>
           <option value="student">Учень</option>
           <option value="teacher">Вчитель</option>

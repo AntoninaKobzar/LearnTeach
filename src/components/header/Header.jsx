@@ -30,7 +30,7 @@ const Header = () => {
             <button onClick={toggleMenu} className={style.menubtn}>
                 <img className={style.menuicon} src={MenuIcon} width="30" height="30" alt='burger menu icon'/>
             </button>
-            <Modal isOpen={isMenuOpen} onClose={toggleMenu}>
+            <Modal className={style.modal} isOpen={isMenuOpen} onClose={toggleMenu}>
                 <BurgerMenu close={toggleMenu}/>
             </Modal>
             <p className={style.logo}>ВчусяВчу</p>
@@ -52,7 +52,7 @@ const Header = () => {
             </button>
             <div className={style.loginbtns}>
             <Link to="/users/login"className={style.loginbtn}>Вхід
-            <Modal isOpen={isModalOpen} onClose={toggleModal}>
+            <Modal className={style.modal} isOpen={isModalOpen} onClose={toggleModal}>
                 <LoginComponent close={toggleModal}/>
                 </Modal></Link>
             <Link to="/users/register" className={style.loginbtn} onClick={toggleModal}>Реєстрація

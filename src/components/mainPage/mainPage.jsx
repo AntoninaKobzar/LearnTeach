@@ -1,6 +1,7 @@
 import style from './mainPage.module.css'
 import Img1 from '../../assets/images/img1.jpg'
 import Img2 from '../../assets/images/img2.jpg'
+import { Link } from 'react-router-dom';
 import Header from '../header/Header'
 import Footer from '../footer/Footer'
 
@@ -26,12 +27,12 @@ const MainPage=()=>{
         <div className={style['pupils-info']}>
             <p className={style['info-title']}>Для учнів:</p>
             <p className={style['info-text']}>Ви шукаєте вчителя або репетитора з конкретного предмету? У нас ви знайдете великий вибір кваліфікованих вчителів, готових допомогти вам у засвоєнні будь-якого матеріалу. Ви можете шукати за предметами, рівнем складності, рейтингом, а також вибирати між онлайн- та очними заняттями – все залежить від вашої власної зручності та переваг.</p>
-        <button className={style['main-btn']}>Перейти</button>
+        <Link className={style['main-btn']} to="/users/student">Перейти</Link>
         </div>
         <div className={style['teachers-info']}>
         <p className={style['info-title']}>Для вчителів:</p>
         <p className={style['info-text']}>Ви прагнете допомогти іншим у навчанні? У нас є безліч учнів, які активно шукають вчителів як для онлайн-, так і для очних занять. Ви можете створити профіль, вказавши ваші навчальні предмети та рівень кваліфікації, і чекати, коли учні звернуться саме до вас.</p>
-        <button className={style['main-btn']}>Перейти</button>
+        <Link className={style['main-btn']} to="/users/teacher">Перейти</Link>
         </div>
         </div>
        <Footer/>

@@ -37,17 +37,12 @@ const LoginComponent = () => {
 
       if (token) {
         localStorage.setItem('token', token);
-        // Store user data in context
-        login(user); // Assuming this function sets authentication state
+        login(user); 
+        console.log(user)
         alert('Logged in successfully!');
         const destination = (user.role === "teacher") ? '/users/teacher' : '/users/student';
         navigate(destination);
       }
-       
-      // } else {
-      //   console.error('Unexpected response format:', response);
-      //   alert('Login failed. Please try again.');
-      // }
     } catch (error) {
       console.error('Login error:', error);
       if (error.message === 'Invalid email or password. Please try again.') {
@@ -59,7 +54,7 @@ const LoginComponent = () => {
   };
 
   return (
-    <Modal isOpen={isModalOpen} onClose={toggleModal}>
+    <Modal className={style.modal} isOpen={isModalOpen} onClose={toggleModal}>
       <img className={style.close} src={CloseIcon} width="30" height="30" alt='close icon' onClick={toggleModal} />
       <form className={style.form} onSubmit={handleLogin}>
         <label htmlFor="email">Email:</label>

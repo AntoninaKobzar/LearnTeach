@@ -5,6 +5,9 @@
      align-items: center; 
      background-color: var(--bg-color);
 }
+.subjects{
+    background-color: var(--bg-color);
+}
 .title{
 
     margin-top: 20px;
