@@ -7,7 +7,7 @@ import style from './login.module.css';
 import { useAuth } from '../../hooks/AuthContext';
 
 const LoginComponent = () => {
-  const { login, isAuthenticated } = useAuth();
+  const { login, user} = useAuth();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isModalOpen, setIsModalOpen] = useState(true);
   const navigate = useNavigate();
@@ -39,9 +39,9 @@ const LoginComponent = () => {
         localStorage.setItem('token', token);
         // Store user data in context
         login(user); // Assuming this function sets authentication state
+        alert('Logged in successfully!');
         const destination = (user.role === "teacher") ? '/users/teacher' : '/users/student';
         navigate(destination);
-        alert('Logged in successfully!');
       }
        
       // } else {

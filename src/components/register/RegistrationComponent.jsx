@@ -146,7 +146,10 @@ const RegistrationComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await authService.register(formData); // Pass formData directly to register function
+      await authService.register(formData); 
+        alert('Logged in successfully!');
+        navigate('/')
+      // Pass formData directly to register function
       alert('User registered successfully!');
       setFormData({
         username: '',
